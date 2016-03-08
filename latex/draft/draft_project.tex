@@ -1,9 +1,27 @@
 % !TEX TS-program = pdflatexmk-c
-\documentclass{article}
+\documentclass[11pt, letterpaper]{article}
+
+\usepackage[brazilian, english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{geometry}
 \usepackage{lipsum}
 
+% set custom date and format
+\usepackage[nodayofweek,level]{datetime}
+\newcommand{\mydate}{\formatdate{11}{3}{2016}}
+\newdateformat{mydateformat}{ \THEMONTH \dateseparator \THEDAY \dateseparator \THEYEAR} 
+
+\title{\vspace{-2cm} 19702 \\ Project 1 (First Draft)}
+\author{Francisco Fonseca \and Octavio Mesner}
+\date{\mydate}
+
+\date{\mydateformat\normalsize\mydate} % Today's date or a custom date
+
 \begin{document}
-%\tableofcontents
+
+\maketitle % Print the title
 
 \section{Introduction}
 
@@ -20,5 +38,14 @@ Write results
 \section{Sensitivity Analysis}
 
 Write sensitivity analysis
+
+\section{Discussion}
+
+Write Discussion
+
+\section{Conclusion \& Recommendations}
+
+Write Conclusion and Recommendations
+
 
 \end{document}
