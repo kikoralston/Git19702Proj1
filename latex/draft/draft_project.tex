@@ -8,6 +8,8 @@
 \usepackage{geometry}
 \usepackage{lipsum}
 
+\usepackage{enumitem}
+
 % set custom date and format
 \usepackage[nodayofweek,level]{datetime}
 \newcommand{\mydate}{\formatdate{11}{3}{2016}}
@@ -23,27 +25,50 @@
 
 \maketitle % Print the title
 
-\section{Introduction}
+\section{Introduction} \label{intro}
 
-New York City (NYC) would like to implement a fleet of autonomous vehicles (AV) by 2020 as part of a larger initiative of establishing itself as a world leader in smart city infrastructure. In such context, city officials wish to understand which alternatives they should consider and how they should proceed in terms of strategies in regards to AV technology within the NYC fleet of vehicles. This study will focus on the alternatives available to implement an automatic merging system (from AutoMerge, Inc.) specifically in NYC's 40-passenger transit buses. It will compare different alternative strategies using Benefit Cost Analysis (BCA). Among the factors to be included in the analysis are: safety, energy consumption, GHG emissions, weather conditions and traffic flow.
+New York City (NYC) would like to implement a fleet of autonomous vehicles (AV) by 2020 as part of a larger initiative of establishing itself as a world leader in smart city infrastructure. Because of the still novel nature of AV technology, there is a great amount of uncertainty on how its implementation will affect traffic issues, such as safety, congestion and environmental impacts. In such context, city officials wish to understand which alternatives they should consider and how they should proceed in terms of strategies in regards to AV technology within the NYC fleet of vehicles. This study will focus on the alternatives available to implement an automatic merging system (from AutoMerge, Inc.) specifically in NYC's 40-passenger transit buses. It will compare different alternative strategies using Benefit Cost Analysis (BCA). Among the factors to be included in the analysis are: safety, energy consumption, GHG emissions, weather conditions and traffic flow. Section \ref{problem} presents a detailed description of the problem and the alternatives analyzed. Section \ref{results} presents the analysis of each alternative and the results found. In section \ref{sensitivity} a sensitivity analysis is performed for some inputs. Section \ref{discussion} discusses the results of the analyses and section \ref{conclusion} presents the conclusion and recommendations of this study.
 
-\section{Problem Description}
+\section{Problem Description} \label{problem}
 
-Write problem description
+\subsection{Benefits \& Costs}
 
-\section{Analysis and Results}
+\subsection{Assumptions}
+
+\subsection{Alternatives}
+
+Three different alternatives will be analyzed in this study. The following list presents these three alternatives:
+
+\begin{description}[leftmargin=0pt]
+\item[Alternative 1:] Do not implement AV.
+
+This is the reference alternative. AV is not implemented and the benefits and costs are the ones already incurred to the population.
+
+\item[Alternative 2:] Perform a pilot test with an amount of $n$ buses before deciding to implement AV.
+
+In this alternative, the city performs a pilot test with an amount of $n$ buses. The pilot test has an associated cost, but its brings more information about the actual benefits of AV on traffic congestion. 
+
+\item[Alternative 3:] Implement AV in the NYC bus fleet.
+
+In this alternative, the city implements the AV technology in the bus fleet directly (without performing any pilot tests).
+
+\end{description}
+
+
+
+\section{Analysis and Results} \label{results}
 
 Write results
 
-\section{Sensitivity Analysis}
+\section{Sensitivity Analysis} \label{sensitivity}
 
 Write sensitivity analysis
 
-\section{Discussion}
+\section{Discussion} \label{discussion}
 
 Write Discussion
 
-\section{Conclusion \& Recommendations}
+\section{Conclusion \& Recommendations} \label{conclusion}
 
 Write Conclusion and Recommendations
 
