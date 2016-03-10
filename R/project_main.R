@@ -85,6 +85,13 @@ emission.costs$nox <- easiur.annual$NOX.Annual.Ground
 # social cost of NH3 ($/ton)
 emission.costs$nh3 <- easiur.annual$NH3.Annual.Ground 
 
+# congestion costs
+congestion.costs <- list()
+congestion.costs$total.hours <- 38
+congestion.costs$cost.per.hour <- 22
+
+# NYC transit data
+transit.data <- read.csv(file= "../../csvfiles/urbantranspsystem.csv")
 # -------------------------------------------------
 # Analysis
 
