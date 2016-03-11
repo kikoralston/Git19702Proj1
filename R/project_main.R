@@ -111,7 +111,7 @@ cf.option1 <- alternative1(parameters, buses.data, transit.risks,
 npv.costs <- as.data.frame(lapply(cf.option1, FUN = npv, 
                                   rate = parameters$disc.rate))/1e9
 npv.costs <- gather(npv.costs, type, value)
-npv.costs$option <- rep(c("do nothing"), nrow(npv.costs)) 
+npv.costs$option <- rep(c("alternative 1"), nrow(npv.costs)) 
 npv.costs$type <- factor(npv.costs$type, levels=npv.costs$type)
 
 # option 2 (perform test)
@@ -123,13 +123,14 @@ npv.costs$type <- factor(npv.costs$type, levels=npv.costs$type)
 g <- ggplot() + geom_bar(data = npv.costs, 
                          aes(x=option, y=value, fill=type), 
                          stat = "identity", width = 0.2) + 
-  theme_bw() + ylab("NPV ($ Billion)") +
-  theme(axis.title.x = element_blank()) +
+  theme_bw(base_size = 16) + ylab("NPV ($ Billion)") +
+  theme(axis.title.x = element_blank(), 
+        legend.position=c(1,1), legend.justification=c(1,1)) +
   guides(fill=guide_legend(title=NULL, reverse = TRUE)) +
   scale_fill_grey() + geom_hline(yintercept = 0)
 
 # width and height are in pixels
-png("barplot1.png")
+png("barplot1.png", width=480, height = 480)
 print(g)
 dev.off()
 
