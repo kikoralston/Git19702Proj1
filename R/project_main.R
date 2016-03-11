@@ -1,5 +1,7 @@
+library(tidyr)
 
 source("EngEcon.R")
+source("define_alternatives.R")
 
 # -------------------------------------------------
 # Creates lists of parameters, costs and other inputs
@@ -55,27 +57,31 @@ transit.risks$victims <- data.frame(type = c("motorist", "passenger",
                                     fatality = c(3, 1.5, 0.5, 11),
                                     injuries = c(446, 837, 67, 390))
 
-# bus gas emissions (source: memo)
+# bus gas emissions (source:  Average In-Use Emissions from Urban Buses 
+#                             and School Buses)
 bus.emission <- list()
 bus.emission$nox <- 17.2 # NOx emission (g/mi)
-bus.emission$particulates <- 172 # particulate emission (g/mi)
+bus.emission$pm <- 0.172 # particulate emission (g/mi)
 bus.emission$hc <- 0.387 # HC emission (g/mi)
 bus.emission$co <- 1.118 # CO emission (g/mi)
 bus.emission$ghg <- 3659 # GHG emission (g/mi)
 
+bus.emission$nox.idle <- 1.109 # NOx idle emission (g/min)
+bus.emission$pm.idle <- 0.04 # particulate idle emission (g/min)
+bus.emission$hc.idle <- 0.046 # HC idle emission (g/min)
+bus.emission$co.idle <- 0.624 # CO idle emission (g/min)
+bus.emission$ghg.idle <- 0 # GHG idle emission (g/min)
+
 # read csv file from EASIUR
 easiur <- read.csv(file= "../../csvfiles/easiur_nyclocation.csv")
-easiur.annual <- easiur[ ,grep("Annual.Ground", names(a))]
+easiur.annual <- easiur[ ,grep("Annual.Ground", names(easiur))]
 
 # emission costs
 # sources:  http://www3.epa.gov/climatechange/EPAactivities/economics/scc.html 
 #           http://barney.ce.cmu.edu/~jinhyok/easiur/online/
 emission.costs <- list()
 # social cost of carbon ($/ton)
-emission.costs$scc <- data.frame(year = c(2015, 2020, 2025, 2030, 
-                                          2035, 2040, 2045, 2050),
-                                 value = c(11, 12, 14, 16, 
-                                           18, 21, 23, 26))
+emission.costs$scc <- 30
 # social cost of PM ($/ton)
 emission.costs$pm.2.5 <- easiur.annual$PM25.Annual.Ground
 # social cost of SO2 ($/ton)
@@ -85,21 +91,47 @@ emission.costs$nox <- easiur.annual$NOX.Annual.Ground
 # social cost of NH3 ($/ton)
 emission.costs$nh3 <- easiur.annual$NH3.Annual.Ground 
 
-# congestion costs
+# congestion costs (source: page 8 in memo)
 congestion.costs <- list()
-congestion.costs$total.hours <- 38
-congestion.costs$cost.per.hour <- 22
+congestion.costs$annual.hours.per.commuter <- 38 # hours
+congestion.costs$annual.cost.per.commuter <- 818 # ($)
+congestion.costs$cost.per.hour <- 22 # $/hour for each commuter
 
 # NYC transit data
 transit.data <- read.csv(file= "../../csvfiles/urbantranspsystem.csv")
+
 # -------------------------------------------------
 # Analysis
 
 # option 1 (do nothing)
+cf.option1 <- alternative1(parameters, buses.data, transit.risks, 
+                           bus.emission, emission.costs, injury.costs,
+                           transit.data, congestion.costs)
+
+npv.costs <- as.data.frame(lapply(cf.option1, FUN = npv, 
+                                  rate = parameters$disc.rate))/1e9
+npv.costs <- gather(npv.costs, type, value)
+npv.costs$option <- rep(c("do nothing"), nrow(npv.costs)) 
+npv.costs$type <- factor(npv.costs$type, levels=npv.costs$type)
 
 # option 2 (perform test)
 
 # option 3 (implement AV without testing)
+
+# plots stacked bar plot with results
+
+g <- ggplot() + geom_bar(data = npv.costs, 
+                         aes(x=option, y=value, fill=type), 
+                         stat = "identity", width = 0.2) + 
+  theme_bw() + ylab("NPV ($ Billion)") +
+  theme(axis.title.x = element_blank()) +
+  guides(fill=guide_legend(title=NULL, reverse = TRUE)) +
+  scale_fill_grey() + geom_hline(yintercept = 0)
+
+# width and height are in pixels
+png("barplot1.png")
+print(g)
+dev.off()
 
 # -------------------------------------------------
 # Sensitivity Analysis
