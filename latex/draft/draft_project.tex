@@ -4,15 +4,13 @@
 \usepackage[brazilian, english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-
 \usepackage[draft]{todonotes}   % notes showed
-
 \usepackage{geometry}
 \usepackage{lipsum}
-
 \usepackage{enumitem}
-
 \usepackage{float}
+\usepackage{forest}
+
 
 % set custom date and format
 \usepackage[nodayofweek,level]{datetime}
@@ -31,18 +29,18 @@
 
 \section{Introduction} \label{intro}
 
-Hello!\\
-
 New York City (NYC) would like to implement a fleet of autonomous
 vehicles (AV) by 2020 as part of a larger initiative of establishing
 itself as a world leader in smart city infrastructure. Because of the
-still novel nature of AV technology, there is a great amount of
-uncertainty on how its implementation will affect traffic issues, such
-as safety, congestion and environmental impacts. In such context, city
-officials wish to understand which alternatives they should consider
-and how they should proceed in terms of strategies in regards to AV
+novel nature of AV technology, there is a considerable amount of
+uncertainty regarding the impact from its implementation on traffic
+issues including
+safety, congestion, energy consumption and environmental impacts.
+City officials wish to determine the effect of each alternative, while
+considering uncertainty, on these outcome
+and optimal strategies moving forward with AV
 technology within the NYC fleet of vehicles. This study will focus on
-the alternatives available to implement an automatic merging system
+the alternatives available to implement  this technology
 from AutoMerge, Inc. (AM) specifically in NYC's 40-passenger transit
 buses. It will compare different alternative strategies by performing
 a Benefit Cost Analysis (BCA) to assess how these different options
@@ -58,12 +56,47 @@ results of the analyses and section \ref{conclusion} presents the
 conclusion and recommendations of this study.
 
 \section{Problem Description} \label{problem}
+\subsection{Alternatives}
 
-\subsection{Benefits \& Costs}
+Broadly, NYC must consider the following three alternatives.
+
+\begin{description}%[leftmargin=0pt]
+\item[Alternative 1:] Do not implement AV.
+
+This is the reference alternative. AV is not implemented and the
+benefits and costs are the ones already incurred to the population.
+There is relatively little uncertanty associated with this outcome
+because there is historical data to project the effect of this
+alternative on outcomes.
+
+\item[Alternative 2:] Implement AV in the NYC bus fleet.
+
+In this alternative, the city implements the AV technology in the bus
+fleet directly (without performing any pilot tests).  Because this is
+an emerging technology, it is unclear how AV will perform in each
+outcome so uncertainty analysis will help determine the expected value
+for each outcome using the risk information currently available.
+
+\item[Alternative 3:] Perform a pilot test with an amount of $n$ buses
+  before deciding to implement AV.
+
+In this alternative, the city performs a pilot test with a predefined
+amount of $n$ buses. The pilot test has an associated cost directly
+proportional to $n$.  The potential benefit of running a pilot study
+is the additional information gained on risks associated with
+congestion and other outcomes.  It will be necessary to calculate the
+value of imperfect information for each $n$ for this alternative.
+
+
+\end{description}
+
+\subsection{Benefits, Costs \& Uncertainty}
 
 Table \ref{tab:bca.costs} presents the different direct and indirect
 costs associated with the implementation of AV technology in NYC bus
-fleet.
+fleet.  Each cost may be slightly different under different
+circumstances.  In our analysis, we assume uncertainty with respect to
+weather and AM proformance.
 
 \begin{table}[h]
 \caption{Costs associated with implementing the AV technology in NYC buses}
@@ -88,26 +121,78 @@ Cost of potential pilot test (*) \\
 
 \subsection{Assumptions}
 
-\todo[inline]{Write about assumptions.}
+\begin{enumerate}
+\item The number of riders using each mode of transportation will remain
+  stable for all three alternatives.
+\item Changes in congestion will affect motor vehicles (buses, cars,
+  light duty vehicles, and trucks) but not bicycles or walkers.
+\item All travel minutes across persons and modes of transportations
+  are worth the same and includes fuel costs, \$22 per hour per individual.
+\item Weather patterns remain consistent.
+\item Any travel time, even fast ones, incurs a time cost.  This means
+  that for each alternative, there will be a time cost added which is
+  associated with it.
+\end{enumerate}
 
-\subsection{Alternatives}
+\section{Methods}
 
-Three different alternatives will be analyzed in this study. The following list presents these three alternatives:
+For this analysis, we use a decision tree with standard expected
+values to assess alternatives one and two and the value of imperfect
+information to assess alternative 3.  Figure~\ref{decisiontree} shows
+our decision tree for the first two alternatives.  This same paradigm
+will be used to compute the expected value of imperfect information.
 
-\begin{description}%[leftmargin=0pt]
-\item[Alternative 1:] Do not implement AV.
+\begin{figure}
+\centering
+\begin{forest}
+for tree={grow=east}
+[Decision
+   [Alt 1[7,tier=word]]
+   [Alt 2
+      [Good Weather
+         [MB[1,tier=word]][LB[2,tier=word]][LW[3,tier=word]]
+      ]
+      [Bad Weather
+         [MB[4,tier=word]][LB[5,tier=word]][LW[6,tier=word]]
+      ]
+   ]
+]
+\end{forest}
+\caption{Partial decision tree}\label{decisiontree}
+\end{figure}
 
-This is the reference alternative. AV is not implemented and the benefits and costs are the ones already incurred to the population.
+\begin{enumerate}
+\item \textbf{Congestion.}  To calculate congestion costs, we only
+  consider
+  buses, cars, light duty vehicles, and trucks.  While walkers and
+  cyclists do experience travel times, we do not believe that they
+  will change with the different alternatives and do not need to be
+  included for comparison purposes.  Thus, for any single mode of
+  transportation, we calculate cost as follows:
+  \[\mbox{Cost}=\mbox{daily person trips}\times\mbox{average trip
+    hours}\times\mbox{Cost per hour per individual}.\]
+  From our assumptions above, only average trip hours will change
+  under differing alternatives, weather conditions, and AM
+  performance.
 
-\item[Alternative 2:] Perform a pilot test with an amount of $n$ buses before deciding to implement AV.
 
-In this alternative, the city performs a pilot test with a predefined amount of $n$ buses. The pilot test has an associated fixed cost, but its brings more information about the actual benefits of AV on traffic congestion.
+\item \textbf{Emissions.}  Calculating emmissions costs are similar to
+  congestion cost because they depend on average trip
+  hours$\times$daily person trips but each mode of transportation has
+  differing  costs associated due to differing emissions.
+  \todo{determine these costs}
 
-\item[Alternative 3:] Implement AV in the NYC bus fleet.
+\item \textbf{Fatalities \& Injuries.}  There are several ways to
+  estimate fatalities and injuries since mean rates are given per
+  trip, exposure time, distance traveled.  Since congestion and
+  emissions are already calculated in person/trip-time, we will
+  continue this for fatalities and injuries for consistency.
 
-In this alternative, the city implements the AV technology in the bus fleet directly (without performing any pilot tests).
-
-\end{description}
+\item \textbf{Capital Costs.}
+  Since the cost of buses will be incurred in all alternatives, we
+  only consider the additional cost for AM which only affects
+  alternatives two and three.
+\end{enumerate}
 
 \section{Analysis and Results} \label{results}
 
@@ -120,6 +205,8 @@ In this alternative, the city implements the AV technology in the bus fleet dire
 \subsection{Alternative 3: Implement AV}
 
 \section{Sensitivity Analysis} \label{sensitivity}
+
+
 
 \todo[inline]{Write sensitivity analysis.}
 
