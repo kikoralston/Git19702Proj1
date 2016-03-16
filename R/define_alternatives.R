@@ -143,6 +143,8 @@ compute.AM.oem.costs <- function(parameters, buses.data, costs.am) {
 alternative1 <- function(parameters, buses.data, transit.risks, 
                          bus.emission, emission.costs, injury.costs,
                          transit.data, congestion.costs){
+  # Creates list with cash flow for each cost for alternative 1
+  
   bc.flow <- list()
   
   # mortality
@@ -173,6 +175,8 @@ alternative1 <- function(parameters, buses.data, transit.risks,
 alternative2 <- function(parameters, buses.data, transit.risks, 
                          bus.emission, emission.costs, injury.costs,
                          transit.data, congestion.costs, costs.am){
+  # Creates list with cash flow for each cost for alternative 2
+  
   bc.flow <- list()
 
   # AM capital costs
