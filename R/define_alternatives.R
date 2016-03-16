@@ -263,7 +263,7 @@ exp.alternative2 <- function(parameters, buses.data, transit.risks,
         p <- prob.safety[j]*change.commute$prob[i]
         cf.final <- mapply("*", cf.case , list(p), SIMPLIFY = FALSE)
       } else{
-        # other cases: sum with previous cases
+        # other cases: multiply by probability and sum with previous cases
         p <- prob.safety[j]*change.commute$prob[i]
         cf.final <- mapply(function(x, y, wx, wy) wx*x+wy*y, 
                            cf.final, cf.case, 
