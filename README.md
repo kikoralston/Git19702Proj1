@@ -6,3 +6,4 @@ Folders:
 * ./R: *R source files*
 * ./latex/draft: *latex source file for first draft*
 * ./latex/report: *latex source file for final report*
+* ./csvfiles: *csv files with input data*
