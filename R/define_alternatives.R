@@ -222,8 +222,8 @@ exp.alternative2 <- function(parameters, buses.data, transit.risks,
   # takes into account uncertainty in congestion and safety
   
   # reads data of fatalities and injury change
-  fatality.change <- read.csv(file= "../../csvfiles/fatalityreduction.csv")
-  injury.change <- read.csv(file= "../../csvfiles/injuriesreduction.csv")
+  fatality.change <- read.csv(file= "../csvfiles/fatalityreduction.csv")
+  injury.change <- read.csv(file= "../csvfiles/injuriesreduction.csv")
   
   # exclude data from interview #5 because it was too different from the rest
   fatality.change <- fatality.change[1:4, ]

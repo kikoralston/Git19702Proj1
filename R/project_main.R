@@ -75,7 +75,7 @@ bus.emission$co.idle <- 0.624 # CO idle emission (g/min)
 bus.emission$ghg.idle <- 0 # GHG idle emission (g/min)
 
 # read csv file from EASIUR
-easiur <- read.csv(file= "../../csvfiles/easiur_nyclocation.csv")
+easiur <- read.csv(file= "../csvfiles/easiur_nyclocation.csv")
 easiur.annual <- easiur[ ,grep("Annual.Ground", names(easiur))]
 
 # **emission costs**
@@ -100,7 +100,7 @@ congestion.costs$annual.cost.per.commuter <- 818 # ($)
 congestion.costs$cost.per.hour <- 22 # $/hour for each commuter
 
 # **NYC transit data**
-transit.data <- read.csv(file= "../../csvfiles/urbantranspsystem.csv")
+transit.data <- read.csv(file= "../csvfiles/urbantranspsystem.csv")
 
 # -------------------------------------------------
 # Analysis
