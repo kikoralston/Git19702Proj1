@@ -2,6 +2,7 @@ library(tidyr)
 
 source("EngEcon.R")
 source("define_alternatives.R")
+source("conditionalProb.R")
 
 # -------------------------------------------------
 # Creates lists of parameters, costs and other inputs
@@ -136,7 +137,9 @@ npv.costs2$option <- rep(c("alternative 2"), nrow(npv.costs2))
 npv.costs2$type <- factor(npv.costs2$type, levels=order.levels)
 
 # option 3 (implement AV without testing)
+#probs for test alternative
 
+bayesProbs <- compute.conditional.probs(change.commute)
 # plots stacked bar plot with results
 
 npv.costs <- rbind(npv.costs1, npv.costs2)
