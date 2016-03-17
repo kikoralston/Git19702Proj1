@@ -227,17 +227,17 @@ exp.alternative2 <- function(parameters, buses.data, transit.risks,
   injury.change <- read.csv(file= "../csvfiles/injuriesreduction.csv")
 
     # computes median of all experts
-  fatality.change.mean <- colMedian(fatality.change)
-  injury.change.mean <- colMedian(injury.change)
+  fatality.change.mean <- colMedians(fatality.change)
+  injury.change.mean <- colMedians(injury.change)
 
   # probabilities of each case (guessed by us)
   prob.safety <- c(0.1, 0.8, 0.1)
 
   # bad weather branch (driver operates the system - same as alternative 1)
-  bad.weather.cf <- alternative1(parameters, buses.data, transit.risks, 
+  bad.weather.cf <- alternative1(parameters, buses.data, transit.risks,
                                  bus.emission, emission.costs, injury.costs,
                                  transit.data, congestion.costs)
-  
+
   # good weather branch (opens event tree)
   # computes \sum_i \sum_j CashFlow_{i,j} * Prob_{i,j}
   # assumes SAFETY and CONGESTION are independents
@@ -272,23 +272,23 @@ exp.alternative2 <- function(parameters, buses.data, transit.risks,
       } else{
         # other cases: multiply by probability and sum with previous cases
         p <- prob.safety[j]*change.commute$prob[i]
-        good.weather.cf <- mapply(function(x, y, wx, wy) wx*x+wy*y, 
-                                  cf.final, cf.case, 
-                                  MoreArgs = list(wx=1, wy=p), 
+        good.weather.cf <- mapply(function(x, y, wx, wy) wx*x+wy*y,
+                                  good.weather.cf, cf.case,
+                                  MoreArgs = list(wx=1, wy=p),
                                   SIMPLIFY = FALSE)
       }
     }
   }
-  
-  # Final expected cash flow 
+
+  # Final expected cash flow
   # (CF: cash flow ; GW: good weather ; BW: bad weather)
   # E[CF] = E[CF | GW]*P(GW) + E[CF | BW]*P(BW)
-  cf.final <- mapply(function(x, y, wx, wy) wx*x+wy*y, 
-                     good.weather.cf, bad.weather.cf, 
-                     MoreArgs = list(wx=weather.data$p.good, 
-                                     wy=weather.data$p.bad), 
+  cf.final <- mapply(function(x, y, wx, wy) wx*x+wy*y,
+                     good.weather.cf, bad.weather.cf,
+                     MoreArgs = list(wx=weather.data$p.good,
+                                     wy=weather.data$p.bad),
                      SIMPLIFY = FALSE)
-  
+
   # returns final expected cash flow
   return(cf.final)
 }

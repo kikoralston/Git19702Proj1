@@ -1,0 +1,140 @@
+\documentclass{article}
+\usepackage{forest,adjustbox}
+\tikzset{
+Above/.style={
+  midway,
+  above,
+  font=\scriptsize,
+  text width=1.5cm,
+  align=center,
+  },
+Below/.style={
+  midway,
+  below,
+  font=\scriptsize,
+  text width=1.5cm,
+  align=center
+  }
+}
+
+\begin{document}
+\begin{adjustbox}{valign=t}
+\begin{forest}
+
+for tree={
+  grow=east,
+  draw=cyan,
+  circle,
+  line width=0.2pt,
+  parent anchor=east,
+  child anchor=west,
+  edge={draw=cyan},
+  edge label={\Huge\color{black}},
+  edge path={
+    \noexpand\path[\forestoption{edge}]
+      (!u.parent anchor) -- ([xshift=-1.6cm].child anchor) --
+      (.child anchor)\forestoption{edge label};
+  },
+  l sep=2cm,
+}
+
+[P1
+   [SN
+      [N[Mary]]]
+   [VP
+      [V[loves]]
+      [N[Luke]]
+]]
+\end{forest}
+\end{adjustbox}\qquad
+\begin{adjustbox}{valign=t}
+\begin{forest}
+[P2
+   [NP
+      [Pro[This]]]
+   [VP
+      [V[is]]
+      [NP
+      [Det[a]]
+      [N[xx]]
+]]]
+\end{forest}
+\end{adjustbox}
+
+\end{document}
+
+\usepackage{tikz}
+\usetikzlibrary{trees,arrows}
+\tikzset{
+  treenode/.style = {shape=rectangle, rounded corners,
+                     draw, align=center,
+                     top color=white, bottom color=blue!20},
+  root/.style     = {treenode, font=\Large, bottom color=red!30},
+  env/.style      = {treenode, font=\ttfamily\normalsize},
+  dummy/.style    = {circle,draw}
+}
+
+%\begin{figure}[htbp]
+%  \begin{center}
+%    \begin{tikzpicture}[->,>=stealth']
+%      \node [rectangle, draw](a) at (0,3) {};
+%      \node [circle, draw] (b) at (2,4) {}
+%      edge [<-] node[left] {Alt 1} (a);
+%      \node [rectangle, draw] (c) at (2,0) {}
+%      edge [<-] node[left] {Alt 2} (a);
+%      \node [circle, draw] (d) at (4,6) {}
+%      edge [<-] node[left] {Good Weather} (b);
+%      \node [circle, draw] (e) at (4,2) {}
+%      edge [<-] node[left] {Bad Weather} (b);
+%
+%      \node [rectangle, draw] (f) at (6,7) {}
+%      edge [<-] node[left] {MB} (d);
+%      \node [rectangle, draw] (g) at (6,6) {}
+%      edge [<-] node[left] {LB} (d);
+%      \node [rectangle, draw] (h) at (6,5) {}
+%      edge [<-] node[left] {LW} (d);
+%
+%      \node [rectangle, draw] (i) at (6,3) {}
+%      edge [<-] node[left] {MB} (e);
+%      \node [rectangle, draw] (j) at (6,2) {}
+%      edge [<-] node[left] {LB} (e);
+%      \node [rectangle, draw] (k) at (6,1) {}
+%      edge [<-] node[left] {LW} (e);
+%    \end{tikzpicture}
+%    \caption{}
+%  \end{center}
+%\end{figure}
+
+
+%\begin{tikzpicture}
+%  [
+%    grow                    = right,
+%    sibling distance        = 6em,
+%    level distance          = 10em,
+%    edge from parent/.style = {draw, -latex},
+%    every node/.style       = {font=\footnotesize},
+%    sloped
+%  ]
+%  \node [root] {Decision}
+%    child { node [env] {Outcomes}
+%      edge from parent node [below] {Alt 1} }
+%    child { node [dummy] {}
+%      child { node [dummy] {}
+%        child { node [env] {out1}
+%          edge from parent node [below] {MB} }
+%        child { node [env] {out2}
+%          edge from parent node [below] {LB} }
+%        child { node [env] {out3}
+%          edge from parent node [below] {LW} }
+%        edge from parent node [below] {Good Weather} }
+%      child {node [dummy] {}
+%        child { node [env] {out4}
+%          edge from parent node [below] {MB} }
+%        child { node [env] {out5}
+%          edge from parent node [below] {LB} }
+%        child { node [env] {out6}
+%          edge from parent node [below] {LW} }
+%        edge from parent node [below] {Bad Weather} }
+%    }
+%;
+%\end{tikzpicture}
