@@ -103,9 +103,7 @@ congestion.costs$cost.per.hour <- 22 # $/hour for each commuter
 transit.data <- read.csv(file= "../csvfiles/urbantranspsystem.csv")
 
 # weather data
-nyc.weather.data <- read.csv(file="../csvfiles/NYC\ weather.csv")
-
-weather.data <- data.frame(p.good, p.bad)
+weather.data <- read.NYC.weather()
 
 # -------------------------------------------------
 # Analysis
@@ -152,7 +150,7 @@ g <- ggplot() + geom_bar(data = npv.costs,
   guides(fill=guide_legend(title=NULL, reverse = TRUE)) +
   scale_fill_grey() + geom_hline(yintercept = 0) +
   scale_y_continuous(breaks = seq(0, 32, by=2)) +
-  coord_cartesian(ylim = c(20, 32))
+  coord_cartesian(ylim = c(0, 32))
 
 # width and height are in pixels
 png("barplot1.png", width=480, height = 480)

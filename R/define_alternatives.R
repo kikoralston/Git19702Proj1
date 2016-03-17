@@ -233,10 +233,12 @@ exp.alternative2 <- function(parameters, buses.data, transit.risks,
   # probabilities of each case (guessed by us)
   prob.safety <- c(0.1, 0.8, 0.1)
 
-  # bad weather branch (driver operates the system - same as alternative 1)
-  bad.weather.cf <- alternative1(parameters, buses.data, transit.risks,
+  # bad weather branch (driver operates the system so there are no changes in 
+  # transit risks and congestion but there are still capital and oem costs 
+  # of AM)
+  bad.weather.cf <- alternative2(parameters, buses.data, transit.risks,
                                  bus.emission, emission.costs, injury.costs,
-                                 transit.data, congestion.costs)
+                                 transit.data, congestion.costs, costs.am)
 
   # good weather branch (opens event tree)
   # computes \sum_i \sum_j CashFlow_{i,j} * Prob_{i,j}
@@ -293,14 +295,23 @@ exp.alternative2 <- function(parameters, buses.data, transit.risks,
   return(cf.final)
 }
 
-weather.table <- table(nyc.weather.data$Weather.Code.1..Description)
-bad.weather.label <- c("freezing fog with sky visible", "heavy rain",
-                       "light freezing rain", "light snow", "rain",
-                       "thunderstorm with light rain or snow", "fog",
-                       "fog with sky visible", "haze", "heavy snow",
-                       "light rain", "mist", "snow",
-                       "thunderstorm with heavy rain or snow")
-nyc.weather.data$bad.weather <- ifelse(
+read.NYC.weather <- function(){
+  # reads csv file with NYC weather data and computes probabilities of
+  # good weather and bad weather
+  
+  nyc.weather.data <- read.csv(file="../csvfiles/NYC weather.csv")
+  
+  weather.table <- table(nyc.weather.data$Weather.Code.1..Description)
+  bad.weather.label <- c("freezing fog with sky visible", "heavy rain",
+                         "light freezing rain", "light snow", "rain",
+                         "thunderstorm with light rain or snow", "fog",
+                         "fog with sky visible", "haze", "heavy snow",
+                         "light rain", "mist", "snow",
+                         "thunderstorm with heavy rain or snow")
+  nyc.weather.data$bad.weather <- ifelse(
     nyc.weather.data$Weather.Code.1..Description %in% bad.weather.label, 1,0)
-p.bad <- sum(nyc.weather.data$bad.weather)/length(nyc.weather.data$bad.weather)
-p.good <- 1-p.bad
+  p.bad <- sum(nyc.weather.data$bad.weather)/length(nyc.weather.data$bad.weather)
+  p.good <- 1-p.bad
+  
+  return(data.frame(p.good = p.good, p.bad = p.bad))
+}
