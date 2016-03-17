@@ -124,7 +124,7 @@ npv.costs1$type <- factor(npv.costs1$type, levels=order.levels)
 cf.option2 <- exp.alternative2(parameters, buses.data, transit.risks, 
                                bus.emission, emission.costs, injury.costs,
                                transit.data, congestion.costs, costs.am, 
-                               change.commute)
+                               change.commute, weather.data)
 
 npv.costs2 <- as.data.frame(lapply(cf.option2, FUN = npv, 
                                    rate = parameters$disc.rate))/1e9
