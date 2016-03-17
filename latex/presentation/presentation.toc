@@ -1,0 +1,5 @@
+\beamer@endinputifotherversion {3.36pt}
+\beamer@sectionintoc {2}{MOMS Data}{3}{0}{1}
+\beamer@sectionintoc {3}{Methods}{5}{0}{2}
+\beamer@subsectionintoc {3}{1}{Evaluation}{5}{0}{2}
+\beamer@subsectionintoc {3}{2}{Lasso}{6}{0}{2}

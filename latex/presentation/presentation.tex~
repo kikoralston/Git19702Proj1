@@ -1,0 +1,173 @@
+\documentclass{beamer}
+\usepackage{tikz}
+\usetikzlibrary{trees,arrows}
+
+\usetheme{CMU}
+
+\title{Measurement of Maternal Stress Study}
+\subtitle{Predicting Preterm Births using Lasso}
+\date{\today}
+\author[Mesner]{Octavio Mesner (\texttt{omesner@cmu.edu})}
+\institute{Carnegie Mellon University}
+
+\begin{document}
+\maketitle
+
+\section{Today}
+\begin{frame}
+\frametitle{Goals}
+Discuss
+\begin{itemize}
+\item Project Overview
+\item Data
+\item Describe Lasso
+\item Possible causal pathways
+\end{itemize}
+\end{frame}
+
+\section{MOMS Data}
+
+\begin{frame}
+  \frametitle{MOMS Data}
+  \framesubtitle{Overview}
+  \begin{itemize}
+  \item 744 subject observations
+  \item 352 covariates collected
+  \item 121 variables with $>$70\% missing (from substudy?)
+  \item 57 (8\%) preterm births/629(92\%) full term (58 missing)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Missing Data}
+  \centering
+  \includegraphics[width=0.75\textwidth]{missingMoms}
+\end{frame}
+
+\section{Methods}
+\subsection{Bias/Variance}
+\begin{frame}
+  \frametitle{Bias and Variance}
+  \centering
+  \includegraphics[width=0.75\textwidth]{bias-variance-tradeoff}
+\end{frame}
+
+\subsection{Evaluation}
+\begin{frame}
+  \frametitle{Cross Validation}
+  How well does a model perform on new data?
+  \centering
+  \includegraphics[width=0.9\textwidth]{10foldCv}
+\end{frame}
+
+\subsection{Lasso}
+\begin{frame}
+  \frametitle{What is Lasso?}
+  \begin{itemize}
+    \item Builds on multiple linear regression
+    \item Includes a penalty term for size of parameters
+  \end{itemize}
+  \centering
+  \includegraphics[width=0.6\textwidth]{lassoPlot}
+\end{frame}
+
+%\begin{frame}
+%  \frametitle{What is Machine Learning?}
+%  \begin{definition}
+%    Study of algorithms that improve their performance at some
+%    task with experience
+%  \end{definition}
+%  \begin{itemize}
+%    \item Unsupervised - Clustering data with no labels
+%    \item Supervised - Predicting outcomes with labeled data
+%    \item Using information prior to delivery, can we predict preterm births?
+%  \end{itemize}
+%\end{frame}
+%
+%\subsection{Overview}
+%\begin{frame}
+%  \frametitle{Function Approximation}
+%  Problem Setting
+%  \begin{itemize}
+%    \item Set of possible instances $X$.
+%    \item Unknown true, target function $f:X\rightarrow Y$
+%    \item Set of function hypotheses $H=\{h:f:X\rightarrow Y\}$
+%  \end{itemize}
+%  Input
+%  \begin{itemize}
+%  \item Training examples of the unknown target function $<x_i,y_i>$
+%  \item Tune a variety of possible functions on the training examples
+%  \item Evaluate each on test data
+%  \end{itemize}
+%  Output
+%  \begin{itemize}
+%  \item Use the best approximation function to make new predictions
+%  \end{itemize}
+%\end{frame}
+%\subsection{Decision Trees}
+%\begin{frame}
+%  \frametitle{Decision Tree}
+%  \begin{figure}[htbp]
+%  \begin{center}
+%    \begin{tikzpicture}[->,>=stealth']
+%      \node [circle, draw] (b) at (0,3) {$x_4$} ;
+%      \node [circle, draw] (e) at (-3,2) {$x_3$}
+%      edge [<-] node[left]  {$x_4=1$} (b);
+%      \node [circle, draw] (c) at (1,1) {$x_1$}
+%      edge [<-] node[left] {$x_4=2$} (b);
+%      \node [rectangle, draw] (d) at (3,2) {$y=1$}
+%      edge [<-] node[right]  {$x_4=3$} (b);
+%      \node [rectangle, draw] (a) at (-4,0) {$y=0$}
+%      edge [<-] node[left]  {$x_3=1$} (e);
+%      \node [rectangle, draw] (f) at (-2,0) {$y=1$}
+%      edge [<-] node[right]  {$x_3=2$} (e);
+%      \node [circle, draw] (g) at (-1,-1) {$x_2$}
+%      edge [<-] node[left] {$x_1=3$} (c);
+%      \node [rectangle, draw] (h) at (2,-1) {$y=1$}
+%      edge [<-] node[left] {$x_1=1$} (c);
+%      \node [rectangle, draw] (i) at (4,-1) {$y=1$}
+%      edge [<-] node[right] {$x_1=2$} (c);
+%      \node [rectangle, draw] (j) at (-2,-3) {$y=1$}
+%      edge [<-] node[left] {$x_2=1$} (g);
+%      \node [rectangle, draw] (j) at (0,-3) {$y=0$}
+%      edge [<-] node[right] {$x_2=1$} (g);
+%\end{tikzpicture}
+%%\caption{Splitting on $x_1$ when $x_4=2$}
+%\end{center}
+%\end{figure}
+%
+%\end{frame}
+%
+%\begin{frame}
+%  \frametitle{Random Forest}
+%  \begin{enumerate}
+%  \item Randomly choose subset of covariates
+%  \item Build a decision tree on the subset
+%  \item Repeat many times (10,000)
+%  \item Let trees ``vote'' on new examples
+%  \end{enumerate}
+%  \centering
+%  \includegraphics[width=0.9\textwidth]{randomForestGraphic}
+%\end{frame}
+%
+%\subsection{Regression}
+%\begin{frame}
+%  \frametitle{Logistic Regression}
+%  What is the probability of preterm birth given pre-delivery information?
+%  \begin{definition}
+%    $P(Y|X_1,X_2,\hdots,X_n) = \text{logit}(\beta_0+\beta_1X_1+\beta_2X_2+\cdots+\beta_nX_n)$
+%  \end{definition}
+%  \centering
+%  \includegraphics[width=0.9\textwidth]{logistic}
+%\end{frame}
+%
+%\begin{frame}
+%  \frametitle{Penalized Regression}
+%  \begin{definition}
+%    $P(Y|X_1,X_2,\hdots,X_n) = \beta_0+\sum_{i=1}^N\beta_iX_i+\lambda(\beta_1,\hdots,\beta_n)$
+%  \end{definition}
+%  \centering
+%  \includegraphics[width=0.5\textwidth]{ridgeRegressionWeights}
+%\end{frame}
+%
+\end{document}
