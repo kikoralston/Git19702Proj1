@@ -292,3 +292,15 @@ exp.alternative2 <- function(parameters, buses.data, transit.risks,
   # returns final expected cash flow
   return(cf.final)
 }
+
+weather.table <- table(nyc.weather.data$Weather.Code.1..Description)
+bad.weather.label <- c("freezing fog with sky visible", "heavy rain",
+                       "light freezing rain", "light snow", "rain",
+                       "thunderstorm with light rain or snow", "fog",
+                       "fog with sky visible", "haze", "heavy snow",
+                       "light rain", "mist", "snow",
+                       "thunderstorm with heavy rain or snow")
+nyc.weather.data$bad.weather <- ifelse(
+    nyc.weather.data$Weather.Code.1..Description %in% bad.weather.label, 1,0)
+p.bad <- sum(nyc.weather.data$bad.weather)/length(nyc.weather.data$bad.weather)
+p.good <- 1-p.bad
