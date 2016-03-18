@@ -10,7 +10,7 @@ source("conditionalProb.R")
 # **parameters**
 parameters <- list()
 parameters$disc.rate <- 0.05 # discount rate (% p.y.)
-parameters$num.years <- 30 # number of years of analysis
+parameters$num.years <- 10 # number of years of analysis
 parameters$year.ini <- 2016 # initial year of cash flow
 parameters$year.AV <- 2020 # initial year of AV implementation
 parameters$ny.population <- 8.4e6 # population
@@ -96,7 +96,7 @@ emission.costs$nh3 <- easiur.annual$NH3.Annual.Ground
 
 # **congestion costs (source: page 8 in memo)**
 congestion.costs <- list()
-congestion.costs$annual.hours.per.commuter <- 38 # hours
+congestion.costs$annual.hours.per.commuter <- 74 # hours
 congestion.costs$annual.cost.per.commuter <- 818 # ($)
 congestion.costs$cost.per.hour <- 22 # $/hour for each commuter
 
@@ -113,7 +113,7 @@ order.levels <- c("cost.AM.capital", "cost.AM.oem", "cost.mortality",
                   "cost.injury", "cost.congestion", "cost.air.pollution",
                   "cost.ghg" )
 
-# option 1 (do nothing)
+# **option 1 (do nothing)**
 cf.option1 <- alternative1(parameters, buses.data, transit.risks,
                            bus.emission, emission.costs, injury.costs,
                            transit.data, congestion.costs)
@@ -124,7 +124,7 @@ npv.costs1 <- gather(npv.costs1, type, value)
 npv.costs1$option <- rep(c("alternative 1"), nrow(npv.costs1))
 npv.costs1$type <- factor(npv.costs1$type, levels=order.levels)
 
-# option 2 (perform test)
+# **option 2 (implement AV without testing)**
 cf.option2 <- exp.alternative2(parameters, buses.data, transit.risks,
                                bus.emission, emission.costs, injury.costs,
                                transit.data, congestion.costs, costs.am,
@@ -136,25 +136,23 @@ npv.costs2 <- gather(npv.costs2, type, value)
 npv.costs2$option <- rep(c("alternative 2"), nrow(npv.costs2))
 npv.costs2$type <- factor(npv.costs2$type, levels=order.levels)
 
-# option 3 (implement AV without testing)
-#probs for test alternative
+# **option 3 (perform test than decide whether to implement AV)**
+
+# conditional probs for test alternative
 bayesProbs <- compute.conditional.probs(change.commute)
 
-#read test costs
+# read test costs
 test.cost <- read.csv(file="../csvfiles/studycost.csv")
 
-testExpValue <- function(size){
-    marg.prob <- bayesProbs$marg.prob[size,-1]
-    tMB <- as.numeric(bayesProbs$tMB[size,-1])
-    tLB <- as.numeric(bayesProbs$tLB[size,-1])
-    tLW <- as.numeric(bayesProbs$tLW[size,-1])
-    minExpAlt(marg.prob, tMB, tLB, tLW)
-}
+testNpvs <- sapply(X = 1:dim(test.cost)[1], FUN = testExpValue, 
+                   parameters, buses.data, transit.risks,
+                   bus.emission, emission.costs, injury.costs,
+                   transit.data, congestion.costs, costs.am,
+                   change.commute, weather.data, bayesProbs)
 
-testNpvs <- sapply(1:dim(test.cost)[1], testExpValue)
-alt3TestTab <- cbind(test.cost[,c(2,3)],testNpvs)
+alt3TestTab <- cbind(test.cost[ ,c(2,3)],testNpvs)
 
-# plots stacked bar plot with results
+# **After all 3 alternatives are computed, plots stacked bar plot with results**
 
 npv.costs <- rbind(npv.costs1, npv.costs2)
 
@@ -165,9 +163,9 @@ g <- ggplot() + geom_bar(data = npv.costs,
   theme(axis.title.x = element_blank())+
         # legend.position=c(1,1), legend.justification=c(1,1)) +
   guides(fill=guide_legend(title=NULL, reverse = TRUE)) +
-  scale_fill_grey() + geom_hline(yintercept = 0) +
-  scale_y_continuous(breaks = seq(0, 32, by=2)) +
-  coord_cartesian(ylim = c(0, 32))
+  geom_hline(yintercept = 0) + scale_fill_brewer() # + scale_fill_grey() + 
+  #scale_y_continuous(breaks = seq(0, 32, by=2)) + 
+  #coord_cartesian(ylim = c(0, 32))
 
 # width and height are in pixels
 png("barplot1.png", width=480, height = 480)
