@@ -144,15 +144,21 @@ bayesProbs <- compute.conditional.probs(change.commute)
 # read test costs
 test.cost <- read.csv(file="../csvfiles/studycost.csv")
 
-testNpvs <- sapply(X = 1:dim(test.cost)[1], FUN = testExpValue, 
+testNpvs <- sapply(X = 1:dim(test.cost)[1], FUN = testExpValue,
                    parameters, buses.data, transit.risks,
                    bus.emission, emission.costs, injury.costs,
                    transit.data, congestion.costs, costs.am,
                    change.commute, weather.data, bayesProbs)
 
 alt3TestTab <- cbind(test.cost[ ,c(2,3)],testNpvs)
-
+alt3TestTab$exp.npv.test <- alt3TestTab$testNpvs - alt3TestTab$cost/1e9
+alt3TestTab$evii <- sum(npv.costs2$value)-alt3TestTab$exp.npv.test
+alt3TestTab$perc.size <- seq(0,100, by=5)
 # **After all 3 alternatives are computed, plots stacked bar plot with results**
+pdf("alt3Barplot.pdf")
+barplot(alt3TestTab$evii*1e3,names.arg=alt3TestTab$perc.size, col=2,
+        xlab="Percent of Fleet in Study", ylab="EVII (Millions $)")
+dev.off()
 
 npv.costs <- rbind(npv.costs1, npv.costs2)
 
@@ -163,8 +169,8 @@ g <- ggplot() + geom_bar(data = npv.costs,
   theme(axis.title.x = element_blank())+
         # legend.position=c(1,1), legend.justification=c(1,1)) +
   guides(fill=guide_legend(title=NULL, reverse = TRUE)) +
-  geom_hline(yintercept = 0) + scale_fill_brewer() # + scale_fill_grey() + 
-  #scale_y_continuous(breaks = seq(0, 32, by=2)) + 
+  geom_hline(yintercept = 0) + scale_fill_brewer() # + scale_fill_grey() +
+  #scale_y_continuous(breaks = seq(0, 32, by=2)) +
   #coord_cartesian(ylim = c(0, 32))
 
 # width and height are in pixels
