@@ -138,8 +138,22 @@ npv.costs2$type <- factor(npv.costs2$type, levels=order.levels)
 
 # option 3 (implement AV without testing)
 #probs for test alternative
-
 bayesProbs <- compute.conditional.probs(change.commute)
+
+#read test costs
+test.cost <- read.csv(file="../csvfiles/studycost.csv")
+
+testExpValue <- function(size){
+    marg.prob <- bayesProbs$marg.prob[size,-1]
+    tMB <- as.numeric(bayesProbs$tMB[size,-1])
+    tLB <- as.numeric(bayesProbs$tLB[size,-1])
+    tLW <- as.numeric(bayesProbs$tLW[size,-1])
+    minExpAlt(marg.prob, tMB, tLB, tLW)
+}
+
+testNpvs <- sapply(1:dim(test.cost)[1], testExpValue)
+alt3TestTab <- cbind(test.cost[,c(2,3)],testNpvs)
+
 # plots stacked bar plot with results
 
 npv.costs <- rbind(npv.costs1, npv.costs2)
