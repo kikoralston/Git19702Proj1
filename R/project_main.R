@@ -97,8 +97,8 @@ emission.costs$nh3 <- easiur.annual$NH3.Annual.Ground
 # **congestion costs (source: page 8 in memo)**
 congestion.costs <- list()
 congestion.costs$annual.hours.per.commuter <- 74 # hours
-congestion.costs$annual.cost.per.commuter <- 818 # ($)
-congestion.costs$cost.per.hour <- 22 # $/hour for each commuter
+congestion.costs$annual.cost.per.commuter <- 1739 # ($)
+congestion.costs$cost.per.hour <- 23.5 # $/hour for each commuter
 
 # **NYC transit data**
 transit.data <- read.csv(file= "../csvfiles/urbantranspsystem.csv")

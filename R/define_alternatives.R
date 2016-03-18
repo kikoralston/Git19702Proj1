@@ -54,7 +54,10 @@ compute.pollution.costs <- function(parameters, transit.data, bus.emission,
   bus.total.time.annual <-
     transit.data$Daily.Person.Trips.millions[idx.bus]*1e6*
     transit.data$Average.time.in.daily.person.trip.minutes[idx.bus]*360
-
+  
+  # divide by the expected number of people in bus
+  bus.total.time.annual <- bus.total.time.annual/30
+  
   cost.per.mile <- bus.emission$nox*emission.costs$nox/1e6 +
     bus.emission$pm*emission.costs$pm.2.5/1e6
 

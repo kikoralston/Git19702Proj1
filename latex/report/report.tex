@@ -25,18 +25,24 @@
 
 \begin{document}
 
-\maketitle % Print the title
+% \maketitle % Print the title
 
+\section*{Executive Summary} \label{execsum}
+
+\pagebreak
 \section{Introduction} \label{intro}
 
 New York City (NYC) would like to implement a fleet of autonomous
 vehicles (AV) by 2020 as part of a larger initiative of establishing
-itself as a world leader in smart city infrastructure. Because of the
+itself as a world leader in smart city infrastructure. AV is a fledgling technology
+that has seen tremendous advances in recent years involving
+big technology players such as Google and Uber. An AV vehicle is equiped with 
+GPS, radar sensors and computer processors which enable it to drive itself without the 
+need of human interaction. Because of the
 novel nature of AV technology, there is a considerable amount of
-uncertainty regarding the impact from its implementation on traffic
-issues including
-safety, congestion, energy consumption and environmental impacts.
-City officials wish to determine the effect of each alternative, while
+uncertainty regarding the impact of its implementation on traffic
+issues including safety, congestion, energy consumption and environmental impacts.
+NYC officials wish to study potential alternatives and determine their effect, while
 considering uncertainty, on these outcome
 and optimal strategies moving forward with AV
 technology within the NYC fleet of vehicles. This study will focus on
@@ -47,8 +53,8 @@ a Benefit Cost Analysis (BCA) to assess how these different options
 impact the general population of NYC, which are the main stakeholders
 in this issue. Among the factors to be included in the analysis are:
 safety, energy consumption, air pollution, GHG emissions, weather
-conditions and traffic flow. Section \ref{problem} presents a detailed
-description of the problem and the alternatives analyzed. Section
+conditions and time savings due to improvement in traffic flow. Section \ref{problem} 
+presents a detailed description of the problem and the alternatives analyzed. Section
 \ref{results} presents the analysis of each alternative and the
 results found. In section \ref{sensitivity} a sensitivity analysis is
 performed for some inputs. Section \ref{discussion} discusses the
@@ -135,10 +141,8 @@ in the bus system will impact these costs in different ways.
   of NYC. This traffic congestion incurs in a social cost due to longer commutes, wasted hours for 
   the general population and additional fuel consumption. The use of AM can 
   have an impact in the traffic flow and potentially decrease these costs. To calculate 
-  congestion costs, we only consider buses, cars, light duty vehicles, and trucks.  While walkers and
-  cyclists do experience travel times, we do not believe that they
-  will change with the different alternatives and do not need to be
-  included for comparison purposes. Table \ref{tab:cong.cost} presents the computation of the 
+  congestion costs, we only consider this cost related to bus commutes (since we assume that these will
+  be the ones impacted by AM). Table \ref{tab:cong.cost} presents the computation of the 
   traffic cost for the reference case
 
 \begin{table}[h]
@@ -149,12 +153,12 @@ in the bus system will impact these costs in different ways.
 \begin{tabular}{c l l l}
 \hline
  	& Variable 							& Value 				& Notes 						\\\hline\hline
-(a)	& Annual Cost per Commuter				& \$ 300				& Source:						\\
-(b)	& Annual hours in congestion per commuter	& 4 hours				& Source:			\\
-(c)	& Cost per minute 						& \$ 13,400			& $(a)/[(b)*60]$		\\
-(d)	& Total time person trip per day (*)			& 40,000 minutes		& Source: 						\\
-\textbf{(e)}	& \textbf{Total annual congestion cost}	& \textbf{\$ 27 Million}	& \textbf{=360*(d)*(c)}			\\\hline\hline
-\multicolumn{4}{l}{{\footnotesize (*) considers only Light Duty Vehicles, Motorcycles and Buses}}
+(a)	& Annual Cost per Commuter				& \$ 1739				& Source:						\\
+(b)	& Annual hours in congestion per commuter	& 74 hours			& Source:			\\
+(c)	& Cost per minute 						& \$ 0.39				& $(a)/[(b)*60]$		\\
+(d)	& Total person trip per day					& 1.52 million			& Source: 						\\
+(e)	& Average time in daily person trip			& 49 minutes			& Source: 						\\
+\textbf{(f)}	& \textbf{Total annual congestion cost}	& \textbf{\$ 10.5 Billion}	& \textbf{=360*(e)*(d)*(c)}			\\\hline\hline
 \end{tabular}
 \label{tab:cong.cost}
 \end{table}%
@@ -165,8 +169,8 @@ in the bus system will impact these costs in different ways.
   The cost of each death is estimated using the standard Value of Statistical Life (VSL in \$). The 
   cost of each injury was estimated using data from CDC for injuries costs for each type of victim 
   (motorist, passenger, pedestrian, etc.). Using historical data of number of mortalities and injuries in 
-  transit accidents in NYC ($N_{mort}$ and $N_{inj}$), we computed total cost of traffic mortalities 
-  ($\mbox{Cost}_{mort}$) and injuries ($\mbox{Cost}_{inj}$).
+  transit accidents in NYC, we computed total cost of traffic mortalities. Table \ref{tab:mortality.cost}
+  present these costs.
 
 \begin{table}[h]
 \caption{Estimate of social costs due to traffic mortalities and injuries in NYC}
@@ -177,13 +181,12 @@ in the bus system will impact these costs in different ways.
 \hline
  	& Variable 							& Value 				& Notes 						\\\hline\hline
 (a)	& VSL (2015 \$)						& \$ 9.2 Million			& Source:						\\
-(b)	& Number of fatalities per year				& 4					& Source:			\\
-\textbf{(e)}	& \textbf{Total annual mortality cost}	& \textbf{\$ 27 Million}	& \textbf{=360*(d)*(c)}			\\
+(b)	& Number of fatalities per year				& 16					& Source:			\\
+\textbf{(c)}	& \textbf{Total annual mortality cost}	& \textbf{\$ 150 Million}	& \textbf{=360*(a)*(b)}			\\
 \\
-(c)	& Average Cost of Injury 					& \$ 13,400			& $=12*(a)*(P | U, 5\%, (b))$		\\
-(d)	& Number of injuries per year				& 40,000				& Source: 						\\
-\textbf{(e)}	& \textbf{Total annual injury cost}	& \textbf{\$ 27 Million}	& \textbf{=360*(d)*(c)}			\\\hline\hline
-\multicolumn{4}{l}{{\footnotesize (*) considers only Light Duty Vehicles, Motorcycles and Buses}}
+(c)	& Average Cost of Injury 					& \$ 179,000			& Source:		\\
+(d)	& Number of injuries per year				& 1740				& Source: 						\\
+\textbf{(e)}	& \textbf{Total annual injury cost}	& \textbf{\$ 311 Million}		& \textbf{=(d)*(c)}			\\\hline\hline
 \end{tabular}
 \label{tab:mortality.cost}
 \end{table}%
@@ -194,15 +197,34 @@ in the bus system will impact these costs in different ways.
   in major health hazards for the general population and can affect future climate. Implementing 
   AM can have an effect of changing these emissions by improving traffic flow. Because at this point 
   we have emission data available only for buses, we focused our emission cost estimate only on 
-  buses. Emission factors for buses differ for when buses are in movement ($ef_m$ in g/mi) 
-  and when buses are idle ($ef_{i}$ in g/min). Using these factors, the marginal cost of each type 
-  of gas emission ($mc_g$ in \$/ton), the total vehicle travel time ($T$ in minutes), 
-  the total vehicle distance ($D$ in miles) and an estimate of the share of travel time that 
-  the vehicle is idle ($s_i$ in \%) we can compute total emission costs for each type of gas.
+  buses. Table \ref{tab:emission.cost} presents the computations of these costs.
 
-  \[\mbox{Cost}=\mbox{Cost}_{\mbox{run}}+\mbox{Cost}_{\mbox{idle}} = D \times ef_m \times mc_g +  s_i \times T \times  ef_i \times mc_g\]
-  
-  We assume that improvements from AM will only affect emissions as a result of idle time 
+\begin{table}[h]
+\caption{Estimate of social costs due to emission of air pollutants and GHG from NYC buses}
+\vspace{0.2em}
+\centering
+\footnotesize 
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{c p{10em} p{7em} p{7em} p{7em} l}
+\hline
+ 	& Variable 							& PM 	& $\mbox{NO}_x$	& GHG		& Notes 						\\\hline\hline
+(a)	& Running Emission Factor				& @		& @				& @			& Source:						\\
+(b)	& Marginal Cost of emission				& @		& @				& @			& Source:						\\
+(c)	& Total annual vehicle miles traveled			& @		& @				& @			& Source:						\\
+\textbf{(d)}	& \textbf{Total annual running emission cost}		& \textbf{\$ 150 Million} & 		& 			& \textbf{=360*(a)*(b)}			\\
+\\
+(d)	& Idle Emission Factor					& @		& @				& @			& Source:						\\
+(e)	& Total person trip per day					& @		& @				& @			& Source:						\\
+(f)	& Average time in daily person trip			& @		& @				& @			& Source:						\\
+(g)	& Average people in each vehicle			& @		& @				& @			& Source:						\\
+(h)	& Total travel time						& @		& @				& @			& Source:						\\
+(i)	& Share of travel time vehicle is idle			& @		& @				& @			& Source:						\\
+\textbf{(j)}	& \textbf{Total annual idle emission cost}		& \textbf{\$ 150 Million} & 		& 			& \textbf{=360*(a)*(b)}			\\\hline
+\end{tabular}
+\label{tab:emission.cost}
+\end{table}%
+    
+  We assume that improvements from AM will only affect emissions as a result of changes in travel idle time 
   (i.e., as congestion decreases, vehicles spend less time in idle status but still travel the same distance).
   
 \end{enumerate}
@@ -236,11 +258,10 @@ types of uncertainty are included in our analysis.
 \hline
 Variable 							& Value 				& Notes 			\\\hline\hline
 Discount rate						& 5 \% per year			& Source:			\\
-Time Horizon						& 20 years			& Source:			\\\hline
+Time Horizon						& 10 years			& Source:			\\\hline
 \end{tabular}
 \label{tab:assumptions}
 \end{table}%
-
 
 \section{Methods}
 
@@ -268,8 +289,6 @@ for tree={grow=east}
 \end{forest}
 \caption{Partial decision tree}\label{decisiontree}
 \end{figure}
-
-Each cost listed in Table \ref{tab:bca.costs} was estimated using data from different sources:
 
 \section{Analysis and Results} \label{results}
 
