@@ -180,3 +180,46 @@ dev.off()
 
 # -------------------------------------------------
 # Sensitivity Analysis
+#changing discount rate
+clrs <- c("red", "blue", "green")
+
+pdf("sensitivity.pdf")
+par(mfrow=c(2,2))
+s.rates <- seq(0.02, 0.12, length=100)
+disc.rate.sense <- sapply(s.rates, discRateSense)
+plotlims <- matrix(c(min(s.rates), max(s.rates),
+                     min(disc.rate.sense), max(disc.rate.sense)),
+                   byrow=T, ncol=2)
+plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
+     xlab="Discount Rate", ylab="Net NPV (Billions $)")
+for(alt in 1:3){
+    lines(s.rates, disc.rate.sense[alt,], lty=1, col=clrs[alt])
+}
+abline(v=parameters$disc.rate)
+legend("topright", legend=c("Alternative 1", "Alternative 2", "Alternative 3"),
+       col=clrs, lty=1)
+
+s.years <- seq(10,40, length=100)
+lifetime.sense <- sapply(s.years, lifetimeSense)
+plotlims <- matrix(c(min(s.years), max(s.years),
+                     min(lifetime.sense), max(lifetime.sense)),
+                   byrow=T, ncol=2)
+plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
+     xlab="Lifetime of AutoMerge", ylab="Net NPV (Billions $)")
+for(alt in 1:3){
+    lines(s.years, lifetime.sense[alt,], lty=1, col=clrs[alt])
+}
+abline(v=parameters$num.years)
+
+s.vsl <- seq(parameters$vsl*0.5, parameters$vsl*2, length=100)
+vsl.sense <- sapply(s.vsl, vslSense)
+plotlims <- matrix(c(min(s.vsl), max(s.vsl),
+                     min(vsl.sense), max(vsl.sense)),
+                   byrow=T, ncol=2)
+plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
+     xlab="Value of a Statistical Life", ylab="Net NPV (Billions $)")
+for(alt in 1:3){
+    lines(s.vsl, vsl.sense[alt,], lty=1, col=clrs[alt])
+}
+abline(v=parameters$vsl)
+dev.off()

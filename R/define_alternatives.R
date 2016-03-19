@@ -54,10 +54,10 @@ compute.pollution.costs <- function(parameters, transit.data, bus.emission,
   bus.total.time.annual <-
     transit.data$Daily.Person.Trips.millions[idx.bus]*1e6*
     transit.data$Average.time.in.daily.person.trip.minutes[idx.bus]*360
-  
+
   # divide by the expected number of people in bus
   bus.total.time.annual <- bus.total.time.annual/30
-  
+
   cost.per.mile <- bus.emission$nox*emission.costs$nox/1e6 +
     bus.emission$pm*emission.costs$pm.2.5/1e6
 
@@ -236,8 +236,8 @@ exp.alternative2 <- function(parameters, buses.data, transit.risks,
   # probabilities of each case (guessed by us)
   prob.safety <- c(0.1, 0.8, 0.1)
 
-  # bad weather branch (driver operates the system so there are no changes in 
-  # transit risks and congestion but there are still capital and oem costs 
+  # bad weather branch (driver operates the system so there are no changes in
+  # transit risks and congestion but there are still capital and oem costs
   # of AM)
   bad.weather.cf <- alternative2(parameters, buses.data, transit.risks,
                                  bus.emission, emission.costs, injury.costs,
@@ -301,9 +301,9 @@ exp.alternative2 <- function(parameters, buses.data, transit.risks,
 read.NYC.weather <- function(){
   # reads csv file with NYC weather data and computes probabilities of
   # good weather and bad weather
-  
+
   nyc.weather.data <- read.csv(file="../csvfiles/NYC weather.csv")
-  
+
   weather.table <- table(nyc.weather.data$Weather.Code.1..Description)
   bad.weather.label <- c("freezing fog with sky visible", "heavy rain",
                          "light freezing rain", "light snow", "rain",
@@ -315,7 +315,7 @@ read.NYC.weather <- function(){
     nyc.weather.data$Weather.Code.1..Description %in% bad.weather.label, 1,0)
   p.bad <- sum(nyc.weather.data$bad.weather)/length(nyc.weather.data$bad.weather)
   p.good <- 1-p.bad
-  
+
   return(data.frame(p.good = p.good, p.bad = p.bad))
 }
 
@@ -329,7 +329,7 @@ netAlt1 <- function(parameters, buses.data, transit.risks,
   cf.option1 <- alternative1(parameters, buses.data, transit.risks,
                              bus.emission, emission.costs, injury.costs,
                              transit.data, congestion.costs)
-  
+
   npv.costs1 <- as.data.frame(lapply(cf.option1, FUN = npv,
                                      rate = parameters$disc.rate))/1e9
   npv.costs1 <- gather(npv.costs1, type, value)
@@ -348,7 +348,7 @@ netAlt2 <- function(parameters, buses.data, transit.risks,
                                  bus.emission, emission.costs, injury.costs,
                                  transit.data, congestion.costs, costs.am,
                                  change.commute, weather.data)
-  
+
   npv.costs2 <- as.data.frame(lapply(cf.option2, FUN = npv,
                                      rate = parameters$disc.rate))/1e9
   npv.costs2 <- gather(npv.costs2, type, value)
@@ -361,12 +361,12 @@ minExpAlt <- function(parameters, buses.data, transit.risks,
                       bus.emission, emission.costs, injury.costs,
                       transit.data, congestion.costs, costs.am,
                       change.commute, weather.data, marg.prob, tMB, tLB, tLW){
-  
+
   # copy change.commute data frame
   new.change.commute <- change.commute
-  
+
   # calculate net cost under each assumption
-  
+
   # change probabilities in change commute
   new.change.commute$prob <- tMB
   netAlt2.tMB <- netAlt2(parameters, buses.data, transit.risks,
@@ -385,11 +385,11 @@ minExpAlt <- function(parameters, buses.data, transit.risks,
                          bus.emission, emission.costs, injury.costs,
                          transit.data, congestion.costs, costs.am,
                          new.change.commute, weather.data)
-  
+
   value.Alt1 <- netAlt1(parameters, buses.data, transit.risks,
                         bus.emission, emission.costs, injury.costs,
                         transit.data, congestion.costs)
-  
+
   #calculate expected value of imperfect information
   exp.test <- marg.prob$tMB*min(value.Alt1, netAlt2.tMB) +
     marg.prob$tLB*min(value.Alt1, netAlt2.tLB) +
@@ -410,14 +410,76 @@ testExpValue <- function(size, parameters, buses.data, transit.risks,
                         transit.data, congestion.costs, costs.am,
                         change.commute, weather.data, marg.prob, tMB, tLB, tLW)
   # sprintf("%d : %5.2f",size, expvalue)
-  print(paste(size, ": ", expvalue))
-  
+  #print(paste(size, ": ", expvalue))
+
   return(expvalue)
 }
 
-# zv <- c(0,0,0)
-# a <- minExpAlt(parameters, buses.data, transit.risks,
-#           bus.emission, emission.costs, injury.costs,
-#           transit.data, congestion.costs, costs.am,
-#           change.commute, weather.data, bayesProbs$marg.prob[21,], 
-#           c(1,0,0),c(0,1,0),c(0,0,1))
+#sensitivity analyses
+
+#making wrappers for netAlt1, netAlt2, and full fleet test
+discRateSense <- function(rate){
+    new.params <- parameters
+    new.params$disc.rate <- rate
+    alt1.net <- netAlt1(new.params, buses.data, transit.risks,
+                        bus.emission, emission.costs, injury.costs,
+                        transit.data, congestion.costs)
+
+    alt2.net <- netAlt2(new.params, buses.data, transit.risks,
+                        bus.emission, emission.costs, injury.costs,
+                        transit.data, congestion.costs, costs.am,
+                        change.commute, weather.data)
+
+    best.size <- 21
+    alt3.exp <- testExpValue(best.size, new.params, buses.data, transit.risks,
+                             bus.emission, emission.costs, injury.costs,
+                             transit.data, congestion.costs, costs.am,
+                             change.commute, weather.data, bayesProbs)
+    alt3.net <- alt3.exp + test.cost[best.size, "cost"]/1e9
+
+    return(c(alt1.net, alt2.net, alt3.net))
+}
+
+lifetimeSense <- function(years){
+    new.params <- parameters
+    new.params$num.years <- years
+    alt1.net <- netAlt1(new.params, buses.data, transit.risks,
+                        bus.emission, emission.costs, injury.costs,
+                        transit.data, congestion.costs)
+
+    alt2.net <- netAlt2(new.params, buses.data, transit.risks,
+                        bus.emission, emission.costs, injury.costs,
+                        transit.data, congestion.costs, costs.am,
+                        change.commute, weather.data)
+
+    best.size <- 21
+    alt3.exp <- testExpValue(best.size, new.params, buses.data, transit.risks,
+                             bus.emission, emission.costs, injury.costs,
+                             transit.data, congestion.costs, costs.am,
+                             change.commute, weather.data, bayesProbs)
+    alt3.net <- alt3.exp + test.cost[best.size, "cost"]/1e9
+
+    return(c(alt1.net, alt2.net, alt3.net))
+}
+
+vslSense <- function(vsl){
+    new.params <- parameters
+    new.params$vsl <- vsl
+    alt1.net <- netAlt1(new.params, buses.data, transit.risks,
+                        bus.emission, emission.costs, injury.costs,
+                        transit.data, congestion.costs)
+
+    alt2.net <- netAlt2(new.params, buses.data, transit.risks,
+                        bus.emission, emission.costs, injury.costs,
+                        transit.data, congestion.costs, costs.am,
+                        change.commute, weather.data)
+
+    best.size <- 21
+    alt3.exp <- testExpValue(best.size, new.params, buses.data, transit.risks,
+                             bus.emission, emission.costs, injury.costs,
+                             transit.data, congestion.costs, costs.am,
+                             change.commute, weather.data, bayesProbs)
+    alt3.net <- alt3.exp + test.cost[best.size, "cost"]/1e9
+
+    return(c(alt1.net, alt2.net, alt3.net))
+}
