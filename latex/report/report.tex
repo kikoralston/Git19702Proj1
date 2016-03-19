@@ -90,12 +90,14 @@ In this alternative, the city performs a pilot test with a predefined
 amount of $n$ buses. The pilot test has an associated cost directly
 proportional to $n$.  The potential benefit of running a pilot study
 is the additional information gained on risks associated with
-congestion and other outcomes.  It will be necessary to calculate the
-value of imperfect information for each $n$ for this alternative.
+congestion and other outcomes.  With this additional information 
+resulting from the test, NYC can make a better informed decision
+whether or not to invest in AV technology.
+% It will be necessary to calculate the value of imperfect information for each $n$ for this alternative.
 
 \end{description}
 
-\subsection{Benefits, Costs \& Uncertainty}
+\subsection{Benefits \& Costs}
 
 Although public transit systems are essential to any urban area, they 
 also incur several costs to the general population. Implementing AM 
@@ -229,6 +231,8 @@ in the bus system will impact these costs in different ways.
   
 \end{enumerate}
 
+\subsection{Uncertainty}
+
 In addition to the costs listed above, there are also uncertainties associated 
 with the implementation of AM. One of the uncertain factor is what will be the effects
 of AM in the congestion and safety of NYC transit system. Another source of 
@@ -263,7 +267,7 @@ Time Horizon						& 10 years			& Source:			\\\hline
 \label{tab:assumptions}
 \end{table}%
 
-\section{Methods}
+\subsection{Decision Framework}
 
 For this analysis, we use a decision tree with standard expected
 values to assess alternatives one and two and the value of imperfect
@@ -274,15 +278,17 @@ will be used to compute the expected value of imperfect information.
 \begin{figure}[h]
 \centering
 \begin{forest}
-for tree={grow=east}
-[Decision
-   [Alt 1[7,tier=word]]
-   [Alt 2
-      [Good Weather
-         [MB[1,tier=word]][LB[2,tier=word]][LW[3,tier=word]]
+for tree={%
+grow=east,
+}
+[,draw, rectangle, minimum height=1em, minimum width=1em
+   [,draw, circle, minimum size=1em[7,tier=word]]
+   [,draw, circle, minimum size=1em
+      [,draw, circle, minimum size=1em
+         [,draw, circle, minimum size=1em[1,tier=word]][,draw, circle, minimum size=1em[2,tier=word]][,draw, circle, minimum size=1em[3,tier=word]]
       ]
-      [Bad Weather
-         [MB[4,tier=word]][LB[5,tier=word]][LW[6,tier=word]]
+      [,draw, circle, minimum size=1em
+         [,draw, circle, minimum size=1em[4,tier=word]][,draw, circle, minimum size=1em[5,tier=word]][,draw, circle, minimum size=1em[6,tier=word]]
       ]
    ]
 ]
