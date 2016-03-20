@@ -1,5 +1,21 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
 \beamer@endinputifotherversion {3.36pt}
+\defcounter {refsection}{0}\relax 
 \beamer@sectionintoc {2}{Problem}{3}{0}{1}
-\beamer@sectionintoc {3}{Methods}{5}{0}{2}
-\beamer@subsectionintoc {3}{1}{Evaluation}{5}{0}{2}
-\beamer@subsectionintoc {3}{2}{Lasso}{6}{0}{2}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {3}{Alternatives}{4}{0}{2}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {4}{Costs and Calculations}{5}{0}{3}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {5}{Uncertainty}{6}{0}{4}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {6}{Assumptions}{7}{0}{5}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {7}{Pilot}{8}{0}{6}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {8}{Results}{9}{0}{7}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {9}{Sensitivity}{10}{0}{8}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {10}{References}{11}{0}{9}
