@@ -1,4 +1,5 @@
 library(tidyr)
+library(xtable)
 
 source("EngEcon.R")
 source("define_alternatives.R")
@@ -14,9 +15,9 @@ parameters$num.years <- 10 # number of years of analysis
 parameters$year.ini <- 2016 # initial year of cash flow
 parameters$year.AV <- 2020 # initial year of AV implementation
 parameters$ny.population <- 8.4e6 # population
-parameters$vsl <- 9.2e6 # value of statistical life ($)
+parameters$vsl <- 8.7e6 # value of statistical life ($)
 # share of time that vehicle is idle (our assumption)
-parameters$share.idle.time <- 0.1
+parameters$share.idle.time <- 0.2
 
 # **injury costs**
 # source: https://wisqars.cdc.gov:8443/costT/cost_Part1_Intro.jsp
@@ -136,6 +137,29 @@ npv.costs2 <- gather(npv.costs2, type, value)
 npv.costs2$option <- rep(c("alternative 2"), nrow(npv.costs2))
 npv.costs2$type <- factor(npv.costs2$type, levels=order.levels)
 
+# **After the 2 alternatives are computed, creates table comparing results**
+
+names.costs <- c("Capital Costs", "O\\&M", "Mortality", "Injury", 
+                 "Congestion", "Air Pollution", "GHG")
+table.output <- data.frame(name = names.costs, 
+                           alt1 = round(c(0, 0, npv.costs1$value), 2),
+                           alt2 = round(npv.costs2$value, 2))
+abs.change <- round(npv.costs2$value[3:nrow(npv.costs2)] - npv.costs1$value, 2)
+percent.change <- round(abs.change/npv.costs1$value, 4)*100
+table.output$abschange <- c("","", abs.change)
+table.output$percchange <- c("","", percent.change)
+
+table.output <- rbind(table.output,
+                      data.frame(name = "Total",
+                                 alt1 = round(sum(npv.costs1$value), 2),
+                                 alt2 = round(sum(npv.costs2$value), 2),
+                                 abschange = round(sum(npv.costs2$value) - 
+                                                 sum(npv.costs1$value), 2),
+                                 percchange = round(sum(npv.costs2$value)/
+                                                  sum(npv.costs1$value) - 1, 
+                                                4)*100))                         
+write.csv(table.output, file = "table_alternatives.csv", 
+          row.names = FALSE, quote = FALSE)
 # **option 3 (perform test than decide whether to implement AV)**
 
 # conditional probs for test alternative
@@ -154,28 +178,10 @@ alt3TestTab <- cbind(test.cost[ ,c(2,3)],testNpvs)
 alt3TestTab$exp.npv.test <- alt3TestTab$testNpvs - alt3TestTab$cost/1e9
 alt3TestTab$evii <- sum(npv.costs2$value)-alt3TestTab$exp.npv.test
 alt3TestTab$perc.size <- seq(0,100, by=5)
-# **After all 3 alternatives are computed, plots stacked bar plot with results**
+
 pdf("alt3Barplot.pdf")
 barplot(alt3TestTab$evii*1e3,names.arg=alt3TestTab$perc.size, col=2,
         xlab="Percent of Fleet in Study", ylab="EVII (Millions $)")
-dev.off()
-
-npv.costs <- rbind(npv.costs1, npv.costs2)
-
-g <- ggplot() + geom_bar(data = npv.costs,
-                         aes(x=option, y=value, fill=type),
-                         stat = "identity", width = 0.2) +
-  theme_bw(base_size = 16) + ylab("NPV ($ Billion)") +
-  theme(axis.title.x = element_blank())+
-        # legend.position=c(1,1), legend.justification=c(1,1)) +
-  guides(fill=guide_legend(title=NULL, reverse = TRUE)) +
-  geom_hline(yintercept = 0) + scale_fill_brewer() # + scale_fill_grey() +
-  #scale_y_continuous(breaks = seq(0, 32, by=2)) +
-  #coord_cartesian(ylim = c(0, 32))
-
-# width and height are in pixels
-png("barplot1.png", width=480, height = 480)
-print(g)
 dev.off()
 
 # -------------------------------------------------
@@ -190,36 +196,56 @@ disc.rate.sense <- sapply(s.rates, discRateSense)
 plotlims <- matrix(c(min(s.rates), max(s.rates),
                      min(disc.rate.sense), max(disc.rate.sense)),
                    byrow=T, ncol=2)
-plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
-     xlab="Discount Rate", ylab="Net NPV (Billions $)")
+plot(1, type='n', xlim=plotlims[1,]*100, ylim=plotlims[2,],
+     xlab="Discount Rate (% per year)", ylab="NPV (Billions $)")
 for(alt in 1:3){
-    lines(s.rates, disc.rate.sense[alt,], lty=1, col=clrs[alt])
+    lines(s.rates*100, disc.rate.sense[alt,], lty=1, col=clrs[alt])
 }
-abline(v=parameters$disc.rate)
+abline(v=parameters$disc.rate*100, lty = "dashed")
 legend("topright", legend=c("Alternative 1", "Alternative 2", "Alternative 3"),
        col=clrs, lty=1)
 
-s.years <- seq(10,40, length=100)
+s.years <- seq(7,20, by=1)
 lifetime.sense <- sapply(s.years, lifetimeSense)
 plotlims <- matrix(c(min(s.years), max(s.years),
                      min(lifetime.sense), max(lifetime.sense)),
                    byrow=T, ncol=2)
 plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
-     xlab="Lifetime of AutoMerge", ylab="Net NPV (Billions $)")
+     xlab="Lifetime of AutoMerge (years)", ylab="NPV (Billions $)")
 for(alt in 1:3){
     lines(s.years, lifetime.sense[alt,], lty=1, col=clrs[alt])
 }
-abline(v=parameters$num.years)
+abline(v=parameters$num.years, lty = "dashed")
 
 s.vsl <- seq(parameters$vsl*0.5, parameters$vsl*2, length=100)
 vsl.sense <- sapply(s.vsl, vslSense)
 plotlims <- matrix(c(min(s.vsl), max(s.vsl),
                      min(vsl.sense), max(vsl.sense)),
                    byrow=T, ncol=2)
-plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
-     xlab="Value of a Statistical Life", ylab="Net NPV (Billions $)")
+plot(1, type='n', xlim=plotlims[1,]/1e6, ylim=plotlims[2,],
+     xlab="Value of a Statistical Life (Million $)", ylab="NPV (Billions $)")
 for(alt in 1:3){
-    lines(s.vsl, vsl.sense[alt,], lty=1, col=clrs[alt])
+    lines(s.vsl/1e6, vsl.sense[alt,], lty=1, col=clrs[alt])
 }
-abline(v=parameters$vsl)
+abline(v=parameters$vsl/1e6, lty = "dashed")
 dev.off()
+
+
+
+# npv.costs <- rbind(npv.costs1, npv.costs2)
+# 
+# g <- ggplot() + geom_bar(data = npv.costs,
+#                          aes(x=option, y=value, fill=type),
+#                          stat = "identity", width = 0.2) +
+#   theme_bw(base_size = 16) + ylab("NPV ($ Billion)") +
+#   theme(axis.title.x = element_blank())+
+#         # legend.position=c(1,1), legend.justification=c(1,1)) +
+#   guides(fill=guide_legend(title=NULL, reverse = TRUE)) +
+#   geom_hline(yintercept = 0) + scale_fill_brewer() # + scale_fill_grey() +
+#   #scale_y_continuous(breaks = seq(0, 32, by=2)) +
+#   #coord_cartesian(ylim = c(0, 32))
+# 
+# # width and height are in pixels
+# png("barplot1.png", width=480, height = 480)
+# print(g)
+# dev.off()

@@ -1,0 +1,153 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.5 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist{nty}{nty}
+    \entry{EIA:guidelines}{report}{}
+      \name{author}{1}{}{%
+        {{hash=f65beadf5a512ddcbabcb5aeeaa1196c}{Agency}{A\bibinitperiod}{U.S.\bibnamedelimi Environmental\bibnamedelima Protection}{U\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim P\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{f65beadf5a512ddcbabcb5aeeaa1196c}
+      \strng{fullhash}{f65beadf5a512ddcbabcb5aeeaa1196c}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Guidelines for Preparing Economic Analyses}
+      \field{type}{techreport}
+      \field{year}{2010}
+      \verb{url}
+      \verb http://yosemite.epa.gov/ee/epa/eerm.nsf/vwAN/EE-0568-50.pdf/$file/EE-0568-50.pdf
+      \endverb
+    \endentry
+    \entry{CDC}{online}{}
+      \name{author}{2}{}{%
+        {{hash=caa77cc2e2b8e080d9fece4e6b1aa804}{Disease\bibnamedelima Control}{D\bibinitperiod\bibinitdelim C\bibinitperiod}{Centers}{C\bibinitperiod}{for}{f\bibinitperiod}{}{}}%
+        {{hash=4ddd60ed145a2978f449c948467669e9}{(CDC)}{(\bibinitperiod}{Prevention}{P\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{e7115e63341c3dd7b51f19ea96357519}
+      \strng{fullhash}{e7115e63341c3dd7b51f19ea96357519}
+      \field{sortinit}{D}
+      \field{sortinithash}{78f7c4753a2004675f316a80bdb31742}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Data \& Statistics (WISQARS) Cost of Injury Reports}
+      \verb{url}
+      \verb https://wisqars.cdc.gov:8443/costT/cost_Part1_Intro.jsp
+      \endverb
+    \endentry
+    \entry{EASIUR}{online}{}
+      \name{author}{1}{}{%
+        {{hash=43b35ff00c9c162fd77617fdaf7820a9}{(EIA)}{(\bibinitperiod}{U.S.\bibnamedelimi Energy\bibnamedelimb Information\bibnamedelima Administration}{U\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim I\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{43b35ff00c9c162fd77617fdaf7820a9}
+      \strng{fullhash}{43b35ff00c9c162fd77617fdaf7820a9}
+      \field{sortinit}{E}
+      \field{sortinithash}{fefc5210ef4721525b2a478df41efcd4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{EASIUR Online Tool}
+      \verb{url}
+      \verb http://barney.ce.cmu.edu/~jinhyok/easiur/online/
+      \endverb
+    \endentry
+    \entry{EIA}{online}{}
+      \name{author}{1}{}{%
+        {{hash=43b35ff00c9c162fd77617fdaf7820a9}{(EIA)}{(\bibinitperiod}{U.S.\bibnamedelimi Energy\bibnamedelimb Information\bibnamedelima Administration}{U\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim I\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{43b35ff00c9c162fd77617fdaf7820a9}
+      \strng{fullhash}{43b35ff00c9c162fd77617fdaf7820a9}
+      \field{sortinit}{E}
+      \field{sortinithash}{fefc5210ef4721525b2a478df41efcd4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The Social Cost of Carbon}
+      \verb{url}
+      \verb https://www3.epa.gov/climatechange/EPAactivities/economics/scc.html
+      \endverb
+    \endentry
+    \entry{busemission}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=fbf781889f6b27c7cc80114e3d0fadcb}{(EPA)}{(\bibinitperiod}{U.S.\bibnamedelimi Environmental\bibnamedelimb Protection\bibnamedelima Agency}{U\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim A\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{fbf781889f6b27c7cc80114e3d0fadcb}
+      \strng{fullhash}{fbf781889f6b27c7cc80114e3d0fadcb}
+      \field{sortinit}{E}
+      \field{sortinithash}{fefc5210ef4721525b2a478df41efcd4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Average In-Use Emissions from Urban Buses and School Buses}
+    \endentry
+    \entry{am1}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=140a717ad49453e7b7ba5a5880f7063e}{Inc.}{I\bibinitperiod}{AutoMerge}{A\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{140a717ad49453e7b7ba5a5880f7063e}
+      \strng{fullhash}{140a717ad49453e7b7ba5a5880f7063e}
+      \field{sortinit}{I}
+      \field{sortinithash}{25e99d37ba90f7c4fb20baf4e310faf3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{date of document: 22 December 2015}
+      \field{title}{Memorandum}
+    \endentry
+    \entry{nyctransit}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=140a717ad49453e7b7ba5a5880f7063e}{Inc.}{I\bibinitperiod}{AutoMerge}{A\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{140a717ad49453e7b7ba5a5880f7063e}
+      \strng{fullhash}{140a717ad49453e7b7ba5a5880f7063e}
+      \field{sortinit}{I}
+      \field{sortinithash}{25e99d37ba90f7c4fb20baf4e310faf3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Summary of New York City Transit Data}
+    \endentry
+    \entry{UMR}{online}{}
+      \name{author}{1}{}{%
+        {{hash=a23cb55e68dac49662ed226027626fe8}{Institute}{I\bibinitperiod}{Texas\bibnamedelimb A\&M\bibnamedelima Transportation}{T\bibinitperiod\bibinitdelim A\bibinitperiod\bibinitdelim T\bibinitperiod}{}{}{}{}}%
+      }
+      \strng{namehash}{a23cb55e68dac49662ed226027626fe8}
+      \strng{fullhash}{a23cb55e68dac49662ed226027626fe8}
+      \field{sortinit}{I}
+      \field{sortinithash}{25e99d37ba90f7c4fb20baf4e310faf3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Urban Mobility Information}
+      \verb{url}
+      \verb http://mobility.tamu.edu/ums/
+      \endverb
+    \endentry
+    \entry{nyweather}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=33abf342070eb020659f49c73c9d6077}{Shine\bibnamedelima Inc.}{S\bibinitperiod\bibinitdelim I\bibinitperiod}{Rain}{R\bibinitperiod}{or}{o\bibinitperiod}{}{}}%
+      }
+      \strng{namehash}{33abf342070eb020659f49c73c9d6077}
+      \strng{fullhash}{33abf342070eb020659f49c73c9d6077}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{date of document: 28 December 2015}
+      \field{title}{New York City Weather Excel file}
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+

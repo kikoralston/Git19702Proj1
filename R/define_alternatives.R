@@ -18,14 +18,17 @@ compute.congestion.costs <- function(parameters, congestion.costs,
     transit.data$Daily.Person.Trips.millions[3]*1e6*
       transit.data$Average.time.in.daily.person.trip.minutes[3])*360
   annual.congestion.cost <- cong.cost.minute*total.time.person.trip
-  return(rep(annual.congestion.cost, parameters$num.years))
+  
+  total.years <- parameters$num.years + parameters$year.AV-parameters$year.ini
+  return(rep(annual.congestion.cost, total.years))
 }
 
 compute.mortality.costs <- function(parameters, transit.risks){
   # Computes annual mortality cost
 
   annual.cost.mortality <- parameters$vsl * sum(transit.risks$victims$fatality)
-  cost.mortality <- rep(annual.cost.mortality, parameters$num.years)
+  total.years <- parameters$num.years + parameters$year.AV-parameters$year.ini
+  cost.mortality <- rep(annual.cost.mortality, total.years)
   return(cost.mortality)
 }
 
@@ -37,7 +40,8 @@ compute.injury.costs <- function(parameters, transit.risks, injury.costs){
   inj.costs <- unlist(injury.costs)
   inj.costs <- c(inj.costs[1], inj.costs[1], inj.costs[2], inj.costs[4])
   annual.cost.injury <- sum(inj.costs*inj.victims)
-  return(rep(annual.cost.injury, parameters$num.years))
+  total.years <- parameters$num.years + parameters$year.AV-parameters$year.ini
+  return(rep(annual.cost.injury, total.years))
 }
 
 compute.pollution.costs <- function(parameters, transit.data, bus.emission,
@@ -69,8 +73,9 @@ compute.pollution.costs <- function(parameters, transit.data, bus.emission,
   # CHECK THIS ASSUMPTION
   annual.pollution.cost <- bus.miles.travel.annual*cost.per.mile+
     bus.total.time.annual*cost.per.idle.minute*parameters$share.idle.time
-
-  return(rep(annual.pollution.cost, parameters$num.years))
+  
+  total.years <- parameters$num.years + parameters$year.AV-parameters$year.ini
+  return(rep(annual.pollution.cost, total.years))
 }
 
 compute.ghg.costs <- function(parameters, transit.data, bus.emission,
@@ -88,6 +93,9 @@ compute.ghg.costs <- function(parameters, transit.data, bus.emission,
     transit.data$Daily.Person.Trips.millions[idx.bus]*1e6*
     transit.data$Average.time.in.daily.person.trip.minutes[idx.bus]*360
 
+  # divide by the expected number of people in bus
+  bus.total.time.annual <- bus.total.time.annual/30
+  
   cost.per.mile <- bus.emission$ghg*emission.costs$scc/1e6
 
   cost.per.idle.minute <- bus.emission$ghg.idle*emission.costs$scc/1e6
@@ -97,8 +105,9 @@ compute.ghg.costs <- function(parameters, transit.data, bus.emission,
   # CHECK THIS ASSUMPTION
   annual.ghg.cost <- bus.miles.travel.annual*cost.per.mile+
     bus.total.time.annual*cost.per.idle.minute*parameters$share.idle.time
-
-  return(rep(annual.ghg.cost, parameters$num.years))
+  
+  total.years <- parameters$num.years + parameters$year.AV-parameters$year.ini
+  return(rep(annual.ghg.cost, total.years))
 }
 
 compute.AM.capital.costs <- function(parameters, buses.data, costs.am) {
@@ -112,21 +121,22 @@ compute.AM.capital.costs <- function(parameters, buses.data, costs.am) {
 
   # Adding cost of simulator facility
   cap.cost.am <- cap.cost.am + costs.am$simulator
+  total.years <- parameters$num.years + parameters$year.AV-parameters$year.ini
 
-  return(c(cap.cost.am, rep(0, (parameters$num.years-1))))
+  return(c(cap.cost.am, rep(0, (total.years-1))))
 }
 
 compute.AM.oem.costs <- function(parameters, buses.data, costs.am) {
   # Compute OeM costs of AM
 
   n.years.before.am <- parameters$year.AV - parameters$year.ini
-
+  total.years <- parameters$num.years + parameters$year.AV-parameters$year.ini
   # oem
   oem.cost.am <- sum(buses.data$number) * costs.am$oemc
 
   # expected overhaul costs
   n.overhaul.cases <- length(costs.am$overhaul$years)
-  overhaul.costs <- rep(0, parameters$num.years)
+  overhaul.costs <- rep(0, total.years)
   for (i in 1:n.overhaul.cases) {
     year.overhaul <- n.years.before.am + costs.am$overhaul$years[i]
     overhaul.costs[year.overhaul] <- overhaul.costs[year.overhaul] +
@@ -135,8 +145,8 @@ compute.AM.oem.costs <- function(parameters, buses.data, costs.am) {
   }
 
   # create vector of OeM costs
-  oem.cost.am <- c(rep(0, (n.years.before.am)),
-                   rep(oem.cost.am, parameters$num.years - n.years.before.am))
+  oem.cost.am <- c(rep(0, n.years.before.am),
+                   rep(oem.cost.am, parameters$num.years))
 
   # include expected overhaul cost
   oem.cost.am <- oem.cost.am + overhaul.costs

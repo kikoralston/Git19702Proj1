@@ -11,11 +11,20 @@
 \usepackage{float}
 \usepackage{forest}
 
+\usepackage{csvsimple}
+\usepackage{array}
+
+\usepackage{multicol}
 
 % set custom date and format
 \usepackage[nodayofweek,level]{datetime}
 \newcommand{\mydate}{\formatdate{17}{3}{2016}}
 \newdateformat{mydateformat}{ \THEMONTH \dateseparator \THEDAY \dateseparator \THEYEAR}
+
+%bibliography
+\usepackage[backend=biber, bibencoding=utf8,style=numeric]{biblatex}
+\addbibresource{bibfile.bib}
+\appto{\bibfont}{\scriptsize} % \footnotesize
 
 \title{\vspace{-2cm} 19702 \\ Project 1}
 \author{Francisco Fonseca \and Octavio Mesner}
@@ -121,15 +130,15 @@ in the bus system will impact these costs in different ways.
 \begin{tabular}{c l l l}
 \hline
  	& Variable 							& Value 				& Notes 						\\\hline\hline
-(a)	& \# buses with age < 5 years				& 2313				& Source:						\\
-(b)	& \# buses with age 5-9 years				& 1296				& Source:						\\
-(c)	& \# buses with age 10-20 years			& 1437				& Source:						\\
-(d)	& Capital Cost per bus age < 5 years		& \$ 5000				& Source:			\\
-(e)	& Capital Cost per bus age 5-9 years		& \$ 6500				& Source:			\\
-(f)	& Capital Cost per bus age 10-20 years		& \$ 8500				& Source:			\\
+(a)	& \# buses with age < 5 years				& 2313				& Source:	 \cite{am1}	\\
+(b)	& \# buses with age 5-9 years				& 1296				& Source:	\cite{am1}					\\
+(c)	& \# buses with age 10-20 years			& 1437				& Source:	\cite{am1}					\\
+(d)	& Capital Cost per bus age < 5 years		& \$ 5000				& Source:	\cite{am1}		\\
+(e)	& Capital Cost per bus age 5-9 years		& \$ 6500				& Source:	\cite{am1}		\\
+(f)	& Capital Cost per bus age 10-20 years		& \$ 8500				& Source:	\cite{am1}		\\
 \textbf{(g)}	& \textbf{Total Capital Cost}(*)			& \textbf{\$ 45.7 Million}	& \textbf{=(a)*(d)+(b)*(e)+(c)*(f)}			\\
 \\
-(h)	& Annual O\&M Cost per Bus				& \$ 1500				& Source:		\\
+(h)	& Annual O\&M Cost per Bus				& \$ 1500				& Source:	\cite{am1}	\\
 \textbf{(i)}	& \textbf{Total Annual O\&M Cost} (**)	& \textbf{\$ 7.6 Million}	& \textbf{=[(a)+(b)+(c)]*(h)}			\\\hline\hline
 \multicolumn{4}{l}{{\footnotesize (*) Capital costs are considered to be incurred only in the first year}} \\
 \multicolumn{4}{l}{{\footnotesize (**) O\&M costs begin to occur in the fifth year of the analysis (when AM starts operating)}} \\
@@ -155,11 +164,11 @@ in the bus system will impact these costs in different ways.
 \begin{tabular}{c l l l}
 \hline
  	& Variable 							& Value 				& Notes 						\\\hline\hline
-(a)	& Annual Cost per Commuter				& \$ 1739				& Source:						\\
-(b)	& Annual hours in congestion per commuter	& 74 hours			& Source:			\\
+(a)	& Annual Cost per Commuter				& \$ 1739				& Source:	\cite{UMR}	\\
+(b)	& Annual hours in congestion per commuter	& 74 hours			& Source:	\cite{UMR} 	\\
 (c)	& Cost per minute 						& \$ 0.39				& $(a)/[(b)*60]$		\\
-(d)	& Total person trip per day					& 1.52 million			& Source: 						\\
-(e)	& Average time in daily person trip			& 49 minutes			& Source: 						\\
+(d)	& Total person trip per day					& 1.52 million			& Source: 	\cite{nyctransit}	\\
+(e)	& Average time in daily person trip			& 49 minutes			& Source:	\cite{nyctransit}	\\
 \textbf{(f)}	& \textbf{Total annual congestion cost}	& \textbf{\$ 10.5 Billion}	& \textbf{=360*(e)*(d)*(c)}			\\\hline\hline
 \end{tabular}
 \label{tab:cong.cost}
@@ -182,13 +191,13 @@ in the bus system will impact these costs in different ways.
 \begin{tabular}{c l l l}
 \hline
  	& Variable 							& Value 				& Notes 						\\\hline\hline
-(a)	& VSL (2015 \$)						& \$ 9.2 Million			& Source:						\\
-(b)	& Number of fatalities per year				& 16					& Source:			\\
-\textbf{(c)}	& \textbf{Total annual mortality cost}	& \textbf{\$ 150 Million}	& \textbf{=360*(a)*(b)}			\\
+(a)	& VSL (2015 \$)						& \$ 8.7 Million			& Source:	\cite{EIA:guidelines}		\\
+(b)	& Number of fatalities per year				& 16					& Source: \cite{nyctransit}	\\
+\textbf{(c)}	& \textbf{Total annual mortality cost}	& \textbf{\$ 150 Million}	& \textbf{=(a)*(b)}			\\
 \\
-(c)	& Average Cost of Injury 					& \$ 179,000			& Source:		\\
-(d)	& Number of injuries per year				& 1740				& Source: 						\\
-\textbf{(e)}	& \textbf{Total annual injury cost}	& \textbf{\$ 311 Million}		& \textbf{=(d)*(c)}			\\\hline\hline
+(d)	& Average Cost of Injury 					& \$ 179,000			& Source:	\cite{CDC} 	\\
+(e)	& Number of injuries per year				& 1740				& Source:	\cite{nyctransit}	\\
+\textbf{(f)}	& \textbf{Total annual injury cost}	& \textbf{\$ 311 Million}		& \textbf{=(d)*(e)}			\\\hline\hline
 \end{tabular}
 \label{tab:mortality.cost}
 \end{table}%
@@ -207,21 +216,21 @@ in the bus system will impact these costs in different ways.
 \centering
 \footnotesize 
 \renewcommand{\arraystretch}{1.1}
-\begin{tabular}{c p{10em} p{7em} p{7em} p{7em} l}
+\begin{tabular}{c | m{10em} | m{7em} | m{7em} | m{7em} | l}
 \hline
  	& Variable 							& PM 	& $\mbox{NO}_x$	& GHG		& Notes 						\\\hline\hline
-(a)	& Running Emission Factor				& @		& @				& @			& Source:						\\
-(b)	& Marginal Cost of emission				& @		& @				& @			& Source:						\\
-(c)	& Total annual vehicle miles traveled			& @		& @				& @			& Source:						\\
-\textbf{(d)}	& \textbf{Total annual running emission cost}		& \textbf{\$ 150 Million} & 		& 			& \textbf{=360*(a)*(b)}			\\
-\\
-(d)	& Idle Emission Factor					& @		& @				& @			& Source:						\\
-(e)	& Total person trip per day					& @		& @				& @			& Source:						\\
-(f)	& Average time in daily person trip			& @		& @				& @			& Source:						\\
-(g)	& Average people in each vehicle			& @		& @				& @			& Source:						\\
-(h)	& Total travel time						& @		& @				& @			& Source:						\\
-(i)	& Share of travel time vehicle is idle			& @		& @				& @			& Source:						\\
-\textbf{(j)}	& \textbf{Total annual idle emission cost}		& \textbf{\$ 150 Million} & 		& 			& \textbf{=360*(a)*(b)}			\\\hline
+(a)	& Running Emission Factor				& 0.172 g/mile	& 17.2 g/mile	& 3659 g/mile	& Source: \cite{busemission} \\
+(b)	& Marginal Cost of emission				& 1.27 \$/g	& 0.07 \$/g	& 30 \$/ton	& Source:	\cite{EIA}, \cite{EASIUR}					\\
+(c)	& Total annual vehicle miles traveled			& \multicolumn{3}{c|}{700 million miles}		& Source:	\cite{nyctransit}					\\
+\textbf{(d)}	& \textbf{Total annual running emission cost}	& \textbf{\$ 153 Million} & 	 \textbf{\$ 839 Million} & \textbf{\$ 77 Million}		& \textbf{=(a)*(b)*(c)}			\\
+& & & & & \\	
+(e)	& Idle Emission Factor					& 0.04 g/min & 1.109 g/min	& NA			& Source:	 \cite{busemission}\\
+(f)	& Total person trip per day					& \multicolumn{3}{c|}{1.52 million}			& Source:	\cite{nyctransit} \\
+(g)	& Average time in daily person trip			& \multicolumn{3}{c|}{49 minutes}			& Source:	\cite{nyctransit}\\
+(h)	& Average people in each vehicle			& \multicolumn{3}{c|}{30}					& Study assumption			\\
+(i)	& Total annual travel time					& \multicolumn{3}{c|}{893 Million minutes}		& = (f)*(g)/(h)				\\
+(j)	& Share of travel time vehicle is idle			& \multicolumn{3}{c|}{0.2}					& Study assumption			\\
+\textbf{(k)}	& \textbf{Total annual idle emission cost}	& \textbf{\$ 39 Million} &  \textbf{\$ 14 Million} & NA 	& \textbf{=(i)*(j)*(e)*(b)}	\\\hline
 \end{tabular}
 \label{tab:emission.cost}
 \end{table}%
@@ -234,25 +243,78 @@ in the bus system will impact these costs in different ways.
 \subsection{Uncertainty}
 
 In addition to the costs listed above, there are also uncertainties associated 
-with the implementation of AM. One of the uncertain factor is what will be the effects
-of AM in the congestion and safety of NYC transit system. Another source of 
-uncertainty is how bad weather will affect the operation of the AM system. These two
-types of uncertainty are included in our analysis.
+with the implementation of AM. Three sources of uncertainties are considered in this analysis:
+the uncertain effect of AM in traffic congestion (and as a consequence in emissions), the uncertain 
+effect of AM in traffic safety (mortalities and injuries) and the uncertain effect of weather in AM operation. 
+
+\begin{enumerate}[leftmargin=*]
+
+\item \textbf{Effect of AM in traffic congestion}
+
+To represent the uncertainty of the actual effect of implementing AM in the traffic
+of NYC, we considered three possible outcomes: traffic congestion gets much better (MB),
+traffic congestion gets a little better (LB) and traffic congestion gets a little worse (LW). Each
+outcome has a probability associated with it. Table \ref{tab:outcome.cong} presents the outcomes 
+and the probabilities associated.
+
+\begin{table}[h]
+\caption{Possible outcomes in traffic congestion of the implementation of AM (Source: \cite{am1})}
+\vspace{0.5em}
+\centering
+\begin{tabular}{l r r}
+\hline
+\bfseries Outcome &  \bfseries Commute time change & \bfseries Probability \\\hline\hline
+Much Better (MB) & 235 seconds & 0.20 \\Little Better (LB) & 55 seconds & 0.40 \\Little Worse (LW) & 30 seconds & 0.40\\\hline
+\end{tabular}
+\label{tab:outcome.cong}
+\end{table}%
+
+\item \textbf{Effect of AM in traffic safety}
+
+To represent the uncertain result in traffic safety of using AM, we used the results of an expert 
+elicitation survey. Five experts gave three possible outcomes for the changes in traffic safety: a 
+lower bound, a best estimate and an upper bound. We took the median value of each outcome and
+assigned a probability of 80\% to the best estimate value and 10\% for each  of the two other values.
+Table \ref{tab:outcome.safety} presents the outcomes and the probabilities associated.
+
+\begin{table}[h]
+\caption{Possible outcomes in traffic safety of the implementation of AM (Source: \cite{am1})}
+\vspace{0.5em}
+\centering
+\begin{tabular}{l r r r}
+\hline
+\bfseries Outcome &  \bfseries Change in Mortality & \bfseries Change in Injuries & \bfseries Probability (*)\\\hline\hline
+Upper Bound (sUB) & -10\% & -10\% & 0.10 \\Best Estimate (sBE) & -4\% & -4\% & 0.80 \\Lower Bound (sLB) & +1\% & +2\% & 0.10\\\hline
+\multicolumn{4}{l}{\footnotesize (*) The probabilities for each case were assigned by us}
+\end{tabular}
+\label{tab:outcome.safety}
+\end{table}%
+
+\item \textbf{Effect of weather in AM operation}
+
+We assumed that in the event of bad weather the AM system would not be able to operate autonomously
+and a human driver would need to take manual control of the vehicle. In this case we assumed that the system
+would operate identically to reference case and hence all results would be the same as alternative 1. Using
+historical data from NY weather, we estimated the expected frequency that weather may be classified as "Bad".
+The resulting probabilities are presented in Table @@.
+
+\begin{table}[h]
+\caption{Estimated probabilities of "Good Weather" and "Bad Weather" (Source: \cite{nyweather})}
+\vspace{0.5em}
+\centering
+\begin{tabular}{l r}
+\hline
+\bfseries Outcome &  \bfseries Probability \\\hline\hline
+Good Weather & 92\% \\Bad Weather & 8\%\\\hline
+\end{tabular}
+\label{tab:outcome.weather}
+\end{table}%
+
+\end{enumerate}
 
 \subsection{Assumptions}
 
-\begin{enumerate}[leftmargin=*]
-\item The number of riders using each mode of transportation will remain
-  stable for all three alternatives.
-\item Changes in congestion will affect motor vehicles (buses, cars,
-  light duty vehicles, and trucks) but not bicycles or walkers.
-\item All travel minutes across persons and modes of transportations
-  are worth the same and includes fuel costs, \$22 per hour per individual.
-\item Weather patterns remain consistent.
-\item Any travel time, even fast ones, incurs a time cost.  This means
-  that for each alternative, there will be a time cost added which is
-  associated with it.
-\end{enumerate}
+Table \ref{tab:assumptions} present the general assumptions used in this study.
 
 \begin{table}[h]
 \caption{General Assumptions}
@@ -261,60 +323,59 @@ types of uncertainty are included in our analysis.
 \begin{tabular}{c l l l}
 \hline
 Variable 							& Value 				& Notes 			\\\hline\hline
-Discount rate						& 5 \% per year			& Source:			\\
-Time Horizon						& 10 years			& Source:			\\\hline
+Discount rate						& 5 \% per year			& Study assumption		\\
+Time Horizon						& 10 years			& Study assumption		\\\hline
 \end{tabular}
 \label{tab:assumptions}
 \end{table}%
 
 \subsection{Decision Framework}
 
-For this analysis, we use a decision tree with standard expected
-values to assess alternatives one and two and the value of imperfect
-information to assess alternative 3.  Figure~\ref{decisiontree} shows
-our decision tree for the first two alternatives.  This same paradigm
-will be used to compute the expected value of imperfect information.
+With all the pertinent costs, assumptions and representations of uncertainties we can now analyze
+the decision of investing or not in AM.  Figure~\ref{decisiontree} shows a diagram of this decision and of the
+uncertain outcomes associated with each decision. In order to simplify the diagram, we didn't represent 
+Alternative 3 (deciding to make a pilot test before deciding between alternative 1 and alternative 2). It would be a 
+third brach coming out of the decision node and the the result of the test would change the probabilities for each 
+traffic outcome (MB, LB and LW). Hence, after the test result node, there would be an identical diagram as the one represented
+by Figure~\ref{decisiontree}.
 
 \begin{figure}[h]
 \centering
-\begin{forest}
-for tree={%
-grow=east,
-}
-[,draw, rectangle, minimum height=1em, minimum width=1em
-   [,draw, circle, minimum size=1em[7,tier=word]]
-   [,draw, circle, minimum size=1em
-      [,draw, circle, minimum size=1em
-         [,draw, circle, minimum size=1em[1,tier=word]][,draw, circle, minimum size=1em[2,tier=word]][,draw, circle, minimum size=1em[3,tier=word]]
-      ]
-      [,draw, circle, minimum size=1em
-         [,draw, circle, minimum size=1em[4,tier=word]][,draw, circle, minimum size=1em[5,tier=word]][,draw, circle, minimum size=1em[6,tier=word]]
-      ]
-   ]
-]
-\end{forest}
-\caption{Partial decision tree}\label{decisiontree}
+\includegraphics[width=0.7\textwidth]{../../R/decisiontree.png}
+\caption{Representation of the problem as a decision tree. The square node represents the decision of choosing either alternative 1 or alternative 2. The circle nodes represent the uncertain events related to weather, traffic congestion or traffic safety. Alternative 3 could be interpreted as another branch in the decision node that would result in a new tree identical to the this one but with different probabilities for MB, LB, LW}
+\label{decisiontree}
 \end{figure}
 
 \section{Analysis and Results} \label{results}
 
-%\todo[inline]{Write results.}
+Table \ref{tab:results1} presents the resulting NPV for each alternative. For the reference case (Alternative 1) we can observe that the component that results in the largest cost is congestion. The total present value of costs for the reference case is approximately \$ 109 Billion. Implementation of AM (alternative 2) results in a decrease of the expected present value of costs of approximately \$ 2 Billion or 1.6\%. Most of the reduction is due to reduction in the congestion costs. On the other hand, the component cost that results in the biggest relative change is mortality costs, which are reduced by 3.9 \% (\$ 60 million).
 
-\subsection{Alternative 1: Don't Implement AV}
+\begin{table}[H]
+\caption{NPV results for Alternative 1 and Alternative 2}
+\vspace{0.5em}
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+\newcolumntype{y}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+\centering
+\csvreader[
+tabular=p{8em} x{6em} x{6em} x{6em} x{6em},
+table head=\hline Name & Alternative 1 (Billion \$) & Alternative 2 (Billion \$) & Change (Billion \$) & Change (\%) \\\hline\hline,%
+table foot=\hline\hline]%
+{../../R/table_alternatives.csv}%
+{name=\name, alt1=\firstalt, alt2=\secondalt, abschange=\abschange, percchange=\percchange}%
+{\name & \firstalt & \secondalt & \abschange & \percchange}%
+\label{tab:results1}
+\end{table}%
 
-\subsection{Alternative 2: Implement AV}
+To analyze whether choosing Alternative 3 (performing a pilot test) would be better than choosing Alternative 2 (which we already know is better than Alternative 1 without the test), we can compute the Net Expected Value of Imperfect Information (NEVII). This quantity would show the monetary value of this pilot test and already accounts for the actual cost of the test. Figure \ref{fig:evii} presents the NEVII for different values of the test size. We can observe that for small sizes of the test (< 50\% of the fleet), it aggregates no value to the decision maker. This means that the expected value of the decision with the test is the same as without the test (i.e., choosing alternative 2). As the test size increases, the value also increases, which means that the NPV with the test is larger than the NPV without the test. According to these results, the optimal test size is 100\% of the fleet.
 
-\subsection{Alternative 3: Pilot test}
-
-Figure \ref{fig:alt1} presents the resulting NPV for each alternative. For alternative 1 (reference case) we can observe that the component that results in the largest cost is air pollution. Total present value of costs is approximately \$ 31.4 Billion. Implementation of AM (alternative 2) results in a decrease of the expected present value of costs of approximately \$ 0.2 Billion or 0.7\%.
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[width=0.45\textwidth]{../../R/barplot1}
-\caption{Expected NPV (in Billion \$) computed for each alternative}
-\label{fig:alt1}
-\end{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.45\textwidth]{../../R/alt3Barplot.pdf}
+\caption{Net Expected Value of Imperfect Information.}
+\label{fig:evii}
 \end{figure}
+
+
 
 \section{Sensitivity Analysis} \label{sensitivity}
 
@@ -328,5 +389,10 @@ Figure \ref{fig:alt1} presents the resulting NPV for each alternative. For alter
 
 %\todo[inline]{Write Conclusion and Recommendations.}
 
+\pagebreak
+\pagebreak
+\begin{multicols}{2}
+\printbibliography[heading=none]
+\end{multicols}
 
 \end{document}
