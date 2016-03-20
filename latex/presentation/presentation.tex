@@ -2,10 +2,6 @@
 \usepackage{tikz}
 \usetikzlibrary{trees,arrows}
 
-\usepackage[backend=biber, bibencoding=utf8,style=numeric]{biblatex}
-\addbibresource{bibfile.bib}
-\appto{\bibfont}{\scriptsize} % \footnotesize
-
 \usetheme{CMU}
 
 \title{AutoMerge}
@@ -17,21 +13,21 @@
 \begin{document}
 \maketitle
 
-\section{}
-\begin{frame}
-\frametitle{Goals}
-Discuss
-\begin{itemize}
-\item Outline Problem
-\item Alternatives
-\item Explain Costs and Calculations
-\item Specify Uncertainty
-\item State Assumptions
-\item Show Results
-\item Convey Sensitivity Analyses
-\item Conclusion
-\end{itemize}
-\end{frame}
+%\section{}
+%\begin{frame}
+%\frametitle{Goals}
+%Discuss
+%\begin{itemize}
+%\item Outline Problem
+%\item Alternatives
+%\item Explain Costs and Calculations
+%\item Specify Uncertainty
+%\item State Assumptions
+%\item Show Results
+%\item Convey Sensitivity Analyses
+%\item Conclusion
+%\end{itemize}
+%\end{frame}
 
 \section{Problem}
 
@@ -163,13 +159,20 @@ Discuss
   \end{columns}
 \end{frame}
 
+\section{Conclusion}
+\begin{frame}
+  \frametitle{Conclusion}
+  \begin{itemize}
+  \item
+  \end{itemize}
+\end{frame}
+
 
 \section{References}
 \begin{frame}
   \frametitle{References}
-  %\begin{multicols}{2}
-    \printbibliography[heading=none]
-  %\end{multicols}
+  \bibliography{../report/bibfile.bib}{}
+  \bibliographystyle{plain}
 \end{frame}
 
 \end{document}
