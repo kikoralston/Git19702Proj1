@@ -139,9 +139,9 @@ npv.costs2$type <- factor(npv.costs2$type, levels=order.levels)
 
 # **After the 2 alternatives are computed, creates table comparing results**
 
-names.costs <- c("Capital Costs", "O\\&M", "Mortality", "Injury", 
+names.costs <- c("Capital Costs", "O\\&M", "Mortality", "Injury",
                  "Congestion", "Air Pollution", "GHG")
-table.output <- data.frame(name = names.costs, 
+table.output <- data.frame(name = names.costs,
                            alt1 = round(c(0, 0, npv.costs1$value), 2),
                            alt2 = round(npv.costs2$value, 2))
 abs.change <- round(npv.costs2$value[3:nrow(npv.costs2)] - npv.costs1$value, 2)
@@ -153,12 +153,12 @@ table.output <- rbind(table.output,
                       data.frame(name = "Total",
                                  alt1 = round(sum(npv.costs1$value), 2),
                                  alt2 = round(sum(npv.costs2$value), 2),
-                                 abschange = round(sum(npv.costs2$value) - 
+                                 abschange = round(sum(npv.costs2$value) -
                                                  sum(npv.costs1$value), 2),
                                  percchange = round(sum(npv.costs2$value)/
-                                                  sum(npv.costs1$value) - 1, 
-                                                4)*100))                         
-write.csv(table.output, file = "table_alternatives.csv", 
+                                                  sum(npv.costs1$value) - 1,
+                                                4)*100))
+write.csv(table.output, file = "table_alternatives.csv",
           row.names = FALSE, quote = FALSE)
 # **option 3 (perform test than decide whether to implement AV)**
 
@@ -228,12 +228,39 @@ for(alt in 1:3){
     lines(s.vsl/1e6, vsl.sense[alt,], lty=1, col=clrs[alt])
 }
 abline(v=parameters$vsl/1e6, lty = "dashed")
+
+s.weather <- seq(0, 0.5, length=100)
+weather.sense <- sapply(s.weather, weatherSense)
+plotlims <- matrix(c(min(s.weather), max(s.weather),
+                     min(weather.sense), max(weather.sense)),
+                   byrow=T, ncol=2)
+plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
+     xlab="% of time bad weather", ylab="NPV (Billions $)")
+for(alt in 1:3){
+    lines(s.weather, weather.sense[alt,], lty=1, col=clrs[alt])
+}
+abline(v=weather.data$p.bad, lty = "dashed")
+dev.off()
+
+pdf("otherSensitivity.pdf")
+s.cong <- seq(congestion.costs$cost.per.hour*0.5,
+              congestion.costs$cost.per.hour*2, length=100)
+cong.sense <- sapply(s.cong, congSense)
+plotlims <- matrix(c(min(s.cong), max(s.cong),
+                     min(cong.sense), max(cong.sense)),
+                   byrow=T, ncol=2)
+plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
+     xlab="Cost per hour of commute ($)", ylab="NPV (Billions $)")
+for(alt in 1:3){
+    lines(s.cong, cong.sense[alt,], lty=1, col=clrs[alt])
+}
+abline(v=congestion.costs$cost.per.hour, lty = "dashed")
 dev.off()
 
 
 
 # npv.costs <- rbind(npv.costs1, npv.costs2)
-# 
+#
 # g <- ggplot() + geom_bar(data = npv.costs,
 #                          aes(x=option, y=value, fill=type),
 #                          stat = "identity", width = 0.2) +
@@ -244,7 +271,7 @@ dev.off()
 #   geom_hline(yintercept = 0) + scale_fill_brewer() # + scale_fill_grey() +
 #   #scale_y_continuous(breaks = seq(0, 32, by=2)) +
 #   #coord_cartesian(ylim = c(0, 32))
-# 
+#
 # # width and height are in pixels
 # png("barplot1.png", width=480, height = 480)
 # print(g)

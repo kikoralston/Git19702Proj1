@@ -18,7 +18,7 @@ compute.congestion.costs <- function(parameters, congestion.costs,
     transit.data$Daily.Person.Trips.millions[3]*1e6*
       transit.data$Average.time.in.daily.person.trip.minutes[3])*360
   annual.congestion.cost <- cong.cost.minute*total.time.person.trip
-  
+
   total.years <- parameters$num.years + parameters$year.AV-parameters$year.ini
   return(rep(annual.congestion.cost, total.years))
 }
@@ -73,7 +73,7 @@ compute.pollution.costs <- function(parameters, transit.data, bus.emission,
   # CHECK THIS ASSUMPTION
   annual.pollution.cost <- bus.miles.travel.annual*cost.per.mile+
     bus.total.time.annual*cost.per.idle.minute*parameters$share.idle.time
-  
+
   total.years <- parameters$num.years + parameters$year.AV-parameters$year.ini
   return(rep(annual.pollution.cost, total.years))
 }
@@ -95,7 +95,7 @@ compute.ghg.costs <- function(parameters, transit.data, bus.emission,
 
   # divide by the expected number of people in bus
   bus.total.time.annual <- bus.total.time.annual/30
-  
+
   cost.per.mile <- bus.emission$ghg*emission.costs$scc/1e6
 
   cost.per.idle.minute <- bus.emission$ghg.idle*emission.costs$scc/1e6
@@ -105,7 +105,7 @@ compute.ghg.costs <- function(parameters, transit.data, bus.emission,
   # CHECK THIS ASSUMPTION
   annual.ghg.cost <- bus.miles.travel.annual*cost.per.mile+
     bus.total.time.annual*cost.per.idle.minute*parameters$share.idle.time
-  
+
   total.years <- parameters$num.years + parameters$year.AV-parameters$year.ini
   return(rep(annual.ghg.cost, total.years))
 }
@@ -493,3 +493,49 @@ vslSense <- function(vsl){
 
     return(c(alt1.net, alt2.net, alt3.net))
 }
+
+congSense <- function(cost){
+    new.costs <- congestion.costs
+    new.costs$cost.per.hour <- cost
+    alt1.net <- netAlt1(parameters, buses.data, transit.risks,
+                        bus.emission, emission.costs, injury.costs,
+                        transit.data, new.costs)
+
+    alt2.net <- netAlt2(parameters, buses.data, transit.risks,
+                        bus.emission, emission.costs, injury.costs,
+                        transit.data, new.costs, costs.am,
+                        change.commute, weather.data)
+
+    best.size <- 21
+    alt3.exp <- testExpValue(best.size, parameters, buses.data, transit.risks,
+                             bus.emission, emission.costs, injury.costs,
+                             transit.data, new.costs, costs.am,
+                             change.commute, weather.data, bayesProbs)
+    alt3.net <- alt3.exp + test.cost[best.size, "cost"]/1e9
+
+    return(c(alt1.net, alt2.net, alt3.net))
+}
+
+weatherSense <- function(perc.bad.weather){
+    new.weather <- weather.data
+    new.weather$p.bad <- perc.bad.weather
+    new.weather$p.good <- 1-perc.bad.weather
+    alt1.net <- netAlt1(parameters, buses.data, transit.risks,
+                        bus.emission, emission.costs, injury.costs,
+                        transit.data, congestion.costs)
+
+    alt2.net <- netAlt2(parameters, buses.data, transit.risks,
+                        bus.emission, emission.costs, injury.costs,
+                        transit.data, congestion.costs, costs.am,
+                        change.commute, new.weather)
+
+    best.size <- 21
+    alt3.exp <- testExpValue(best.size, parameters, buses.data, transit.risks,
+                             bus.emission, emission.costs, injury.costs,
+                             transit.data, congestion.costs, costs.am,
+                             change.commute, new.weather, bayesProbs)
+    alt3.net <- alt3.exp + test.cost[best.size, "cost"]/1e9
+
+    return(c(alt1.net, alt2.net, alt3.net))
+}
+
