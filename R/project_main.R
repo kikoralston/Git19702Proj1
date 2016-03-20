@@ -211,7 +211,7 @@ plotlims <- matrix(c(min(s.years), max(s.years),
                      min(lifetime.sense), max(lifetime.sense)),
                    byrow=T, ncol=2)
 plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
-     xlab="Lifetime of AutoMerge (years)", ylab="NPV (Billions $)")
+     xlab="Time Horizon of AutoMerge (years)", ylab="NPV (Billions $)")
 for(alt in 1:3){
     lines(s.years, lifetime.sense[alt,], lty=1, col=clrs[alt])
 }
@@ -235,7 +235,7 @@ plotlims <- matrix(c(min(s.weather), max(s.weather),
                      min(weather.sense), max(weather.sense)),
                    byrow=T, ncol=2)
 plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
-     xlab="% of time bad weather", ylab="NPV (Billions $)")
+     xlab="AM-undrivable weather (% of time)", ylab="NPV (Billions $)")
 for(alt in 1:3){
     lines(s.weather, weather.sense[alt,], lty=1, col=clrs[alt])
 }
