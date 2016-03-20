@@ -99,10 +99,16 @@ Discuss
 \section{Uncertainty}
 \begin{frame}
   \frametitle{Uncertainty}
-  We account for uncertainty using decision trees.  Our sources of
-  uncertainty are weather and proformance of AM.
-  \centering
-  \includegraphics[width=0.4\textwidth]{../../R/decisiontree}
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+      We account for uncertainty using decision trees.  Our sources of
+      uncertainty are weather and proformance of AM.
+    \end{column}
+    \begin{column}{0.6\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{../../R/decisiontree}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \section{Assumptions}
@@ -110,14 +116,14 @@ Discuss
   \frametitle{Assumptions}
 \end{frame}
 
-\section{Pilot}
+\section{Pilot Study}
 \begin{frame}
   \frametitle{Pilot}
   \begin{columns}
     \begin{column}{0.4\textwidth}
       \begin{itemize}
-      \item EVII
-      \item Figure shows value after cost beyond alternative 2.
+      \item Uses EVII and Bayes Theorem to compute
+      \item Figure shows value study after associated cost.
       \item Optimum value from 100\% of fleet.
       \end{itemize}
     \end{column}
@@ -142,7 +148,12 @@ Discuss
   \begin{columns}
     \begin{column}{0.35\textwidth}
       \begin{itemize}
-      \item
+      \item Input values varied between 50 and 200\% or more. 
+      \item Dashed line indicates baseline assumption
+      \item Discount rate, VSL, and per person cost of commute time
+        all greatly affect net expected cost but similarly for all.
+      \item Weather affects alternatives 2 and 3 more then 1 but
+        alternative 1 remained more expensive.
       \end{itemize}
     \end{column}
     \begin{column}{0.65\textwidth}

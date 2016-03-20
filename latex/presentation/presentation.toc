@@ -12,7 +12,7 @@
 \defcounter {refsection}{0}\relax 
 \beamer@sectionintoc {6}{Assumptions}{7}{0}{5}
 \defcounter {refsection}{0}\relax 
-\beamer@sectionintoc {7}{Pilot}{8}{0}{6}
+\beamer@sectionintoc {7}{Pilot Study}{8}{0}{6}
 \defcounter {refsection}{0}\relax 
 \beamer@sectionintoc {8}{Results}{9}{0}{7}
 \defcounter {refsection}{0}\relax 
