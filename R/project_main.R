@@ -186,24 +186,31 @@ dev.off()
 
 # -------------------------------------------------
 # Sensitivity Analysis
-#changing discount rate
-clrs <- c("red", "blue", "green")
 
-pdf("sensitivity.pdf")
-par(mfrow=c(2,2))
-s.rates <- seq(0.02, 0.12, length=100)
+# changing discount rate
+
+# clrs <- c("red", "blue", "green")
+markers <- c(21, 22, 24) # square, circle, triangle
+
+pdf("sensitivity.pdf", width = 7*2/3, height = 7)
+par(mfrow=c(3,2), mar=c(5.1, 4.1, 0, 1),
+    oma = c(0, 0, 1, 0))
+
+s.rates <- seq(0.02, 0.12, by=0.01)
 disc.rate.sense <- sapply(s.rates, discRateSense)
 plotlims <- matrix(c(min(s.rates), max(s.rates),
                      min(disc.rate.sense), max(disc.rate.sense)),
                    byrow=T, ncol=2)
 plot(1, type='n', xlim=plotlims[1,]*100, ylim=plotlims[2,],
-     xlab="Discount Rate (% per year)", ylab="NPV (Billions $)")
+     xlab="Discount Rate (% per year)", 
+     ylab="PV of Costs(Billions $)")
 for(alt in 1:3){
-    lines(s.rates*100, disc.rate.sense[alt,], lty=1, col=clrs[alt])
+  lines(s.rates*100, disc.rate.sense[alt,], lty=1)
+  points(s.rates*100, disc.rate.sense[alt,], pch=markers[alt], bg="white")
 }
 abline(v=parameters$disc.rate*100, lty = "dashed")
 legend("topright", legend=c("Alternative 1", "Alternative 2", "Alternative 3"),
-       col=clrs, lty=1)
+       lty = c(1, 1, 1), pch = markers, pt.bg = c("white", "white", "white"))
 
 s.years <- seq(7,20, by=1)
 lifetime.sense <- sapply(s.years, lifetimeSense)
@@ -211,53 +218,60 @@ plotlims <- matrix(c(min(s.years), max(s.years),
                      min(lifetime.sense), max(lifetime.sense)),
                    byrow=T, ncol=2)
 plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
-     xlab="Time Horizon of AutoMerge (years)", ylab="NPV (Billions $)")
+     xlab="Time Horizon of AutoMerge (years)", 
+     ylab="PV of Costs (Billions $)")
 for(alt in 1:3){
-    lines(s.years, lifetime.sense[alt,], lty=1, col=clrs[alt])
+  lines(s.years, lifetime.sense[alt,], lty=1)
+  points(s.years, lifetime.sense[alt,], pch=markers[alt], bg="white")
 }
 abline(v=parameters$num.years, lty = "dashed")
 
-s.vsl <- seq(parameters$vsl*0.5, parameters$vsl*2, length=100)
+s.vsl <- seq(parameters$vsl*0.5, parameters$vsl*2, length=20)
 vsl.sense <- sapply(s.vsl, vslSense)
 plotlims <- matrix(c(min(s.vsl), max(s.vsl),
                      min(vsl.sense), max(vsl.sense)),
                    byrow=T, ncol=2)
 plot(1, type='n', xlim=plotlims[1,]/1e6, ylim=plotlims[2,],
-     xlab="Value of a Statistical Life (Million $)", ylab="NPV (Billions $)")
+     xlab="Value of a Statistical Life (Million $)", 
+     ylab="PV of Costs (Billions $)")
 for(alt in 1:3){
-    lines(s.vsl/1e6, vsl.sense[alt,], lty=1, col=clrs[alt])
+  lines(s.vsl/1e6, vsl.sense[alt,], lty=1)
+  points(s.vsl/1e6, vsl.sense[alt,], pch=markers[alt], bg="white")
 }
 abline(v=parameters$vsl/1e6, lty = "dashed")
 
-s.weather <- seq(0, 0.5, length=100)
+s.weather <- seq(0, 0.5, length=20)
 weather.sense <- sapply(s.weather, weatherSense)
 plotlims <- matrix(c(min(s.weather), max(s.weather),
                      min(weather.sense), max(weather.sense)),
                    byrow=T, ncol=2)
-plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
-     xlab="AM-undrivable weather (% of time)", ylab="NPV (Billions $)")
+plot(1, type='n', xlim=plotlims[1, ]*100, ylim=plotlims[2, ],
+     xlab="AM-undrivable weather (% of time)", ylab="PV of Costs (Billions $)")
 for(alt in 1:3){
-    lines(s.weather, weather.sense[alt,], lty=1, col=clrs[alt])
+  lines(s.weather*100, weather.sense[alt,], lty=1)
+  points(s.weather*100, weather.sense[alt,], pch=markers[alt], bg="white")
 }
-abline(v=weather.data$p.bad, lty = "dashed")
-dev.off()
+abline(v=weather.data$p.bad*100, lty = "dashed")
 
-pdf("otherSensitivity.pdf")
+# dev.off()
+# pdf("otherSensitivity.pdf")
 s.cong <- seq(congestion.costs$cost.per.hour*0.5,
-              congestion.costs$cost.per.hour*2, length=100)
+              congestion.costs$cost.per.hour*2, length=20)
 cong.sense <- sapply(s.cong, congSense)
 plotlims <- matrix(c(min(s.cong), max(s.cong),
                      min(cong.sense), max(cong.sense)),
                    byrow=T, ncol=2)
 plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
-     xlab="Cost per hour of commute ($)", ylab="NPV (Billions $)")
+     xlab="Cost per hour of commute ($)", 
+     ylab="PV of Costs (Billions $)")
 for(alt in 1:3){
-    lines(s.cong, cong.sense[alt,], lty=1, col=clrs[alt])
+    lines(s.cong, cong.sense[alt,], lty=1)
+  points(s.cong, cong.sense[alt,], pch=markers[alt], bg="white")
 }
 abline(v=congestion.costs$cost.per.hour, lty = "dashed")
+#legend("topleft", legend=c("Alternative 1", "Alternative 2", "Alternative 3"),
+#       lty = c(1, 1, 1), pch = markers, pt.bg = c("white", "white", "white"))
 dev.off()
-
-
 
 # npv.costs <- rbind(npv.costs1, npv.costs2)
 #

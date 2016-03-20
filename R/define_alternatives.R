@@ -3,8 +3,7 @@ source("EngEcon.R")
 
 compute.congestion.cost.minute <- function(congestion.costs) {
   # Computes congestion cost per minute using commuter data
-  return(congestion.costs$annual.cost.per.commuter/
-           (congestion.costs$annual.hours.per.commuter*60))
+  return(congestion.costs$cost.per.hour/60)
 }
 
 compute.congestion.costs <- function(parameters, congestion.costs,
