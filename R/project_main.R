@@ -180,8 +180,9 @@ alt3TestTab$evii <- sum(npv.costs2$value)-alt3TestTab$exp.npv.test
 alt3TestTab$perc.size <- seq(0,100, by=5)
 
 pdf("alt3Barplot.pdf")
-barplot(alt3TestTab$evii*1e3,names.arg=alt3TestTab$perc.size, col=2,
-        xlab="Percent of Fleet in Study", ylab="EVII (Millions $)")
+barplot(alt3TestTab$evii*1e3,names.arg=alt3TestTab$perc.size, col="gray",
+        xlab="Percent of Fleet in Study (%)", ylab="NEVII (Millions $)",
+        cex.axis = 1.5, cex.lab = 1.5)
 dev.off()
 
 # -------------------------------------------------
@@ -192,10 +193,11 @@ dev.off()
 # clrs <- c("red", "blue", "green")
 markers <- c(21, 22, 24) # square, circle, triangle
 
-pdf("sensitivity.pdf", width = 7*2/3, height = 7)
-par(mfrow=c(3,2), mar=c(5.1, 4.1, 0, 1),
-    oma = c(0, 0, 1, 0))
+pdf("sensitivity1.pdf", height = 7, width = 14)
+par(mfrow=c(1,2), mar=c(5.1, 4.4, 0, 1),
+    oma = c(0, 0, 1, 0), cex.axis = 1.5, cex.lab = 1.5)
 
+# 1
 s.rates <- seq(0.02, 0.12, by=0.01)
 disc.rate.sense <- sapply(s.rates, discRateSense)
 plotlims <- matrix(c(min(s.rates), max(s.rates),
@@ -212,20 +214,28 @@ abline(v=parameters$disc.rate*100, lty = "dashed")
 legend("topright", legend=c("Alternative 1", "Alternative 2", "Alternative 3"),
        lty = c(1, 1, 1), pch = markers, pt.bg = c("white", "white", "white"))
 
-s.years <- seq(7,20, by=1)
-lifetime.sense <- sapply(s.years, lifetimeSense)
-plotlims <- matrix(c(min(s.years), max(s.years),
-                     min(lifetime.sense), max(lifetime.sense)),
+# 2
+s.cong <- seq(congestion.costs$cost.per.hour*0.5,
+              congestion.costs$cost.per.hour*2, length=20)
+cong.sense <- sapply(s.cong, congSense)
+plotlims <- matrix(c(min(s.cong), max(s.cong),
+                     min(cong.sense), max(cong.sense)),
                    byrow=T, ncol=2)
 plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
-     xlab="Time Horizon of AutoMerge (years)", 
+     xlab="Cost per hour of commute ($)", 
      ylab="PV of Costs (Billions $)")
 for(alt in 1:3){
-  lines(s.years, lifetime.sense[alt,], lty=1)
-  points(s.years, lifetime.sense[alt,], pch=markers[alt], bg="white")
+  lines(s.cong, cong.sense[alt,], lty=1)
+  points(s.cong, cong.sense[alt,], pch=markers[alt], bg="white")
 }
-abline(v=parameters$num.years, lty = "dashed")
+abline(v=congestion.costs$cost.per.hour, lty = "dashed")
+dev.off()
 
+pdf("sensitivity2.pdf", height = 7, width = 14)
+par(mfrow=c(1,2), mar=c(5.1, 4.4, 0, 1),
+    oma = c(0, 0, 1, 0), cex.axis = 1.5, cex.lab = 1.5)
+
+# 1
 s.vsl <- seq(parameters$vsl*0.5, parameters$vsl*2, length=20)
 vsl.sense <- sapply(s.vsl, vslSense)
 plotlims <- matrix(c(min(s.vsl), max(s.vsl),
@@ -239,7 +249,10 @@ for(alt in 1:3){
   points(s.vsl/1e6, vsl.sense[alt,], pch=markers[alt], bg="white")
 }
 abline(v=parameters$vsl/1e6, lty = "dashed")
+legend("topleft", legend=c("Alternative 1", "Alternative 2", "Alternative 3"),
+       lty = c(1, 1, 1), pch = markers, pt.bg = c("white", "white", "white"))
 
+# 2
 s.weather <- seq(0, 0.5, length=20)
 weather.sense <- sapply(s.weather, weatherSense)
 plotlims <- matrix(c(min(s.weather), max(s.weather),
@@ -252,27 +265,14 @@ for(alt in 1:3){
   points(s.weather*100, weather.sense[alt,], pch=markers[alt], bg="white")
 }
 abline(v=weather.data$p.bad*100, lty = "dashed")
-
-# dev.off()
-# pdf("otherSensitivity.pdf")
-s.cong <- seq(congestion.costs$cost.per.hour*0.5,
-              congestion.costs$cost.per.hour*2, length=20)
-cong.sense <- sapply(s.cong, congSense)
-plotlims <- matrix(c(min(s.cong), max(s.cong),
-                     min(cong.sense), max(cong.sense)),
-                   byrow=T, ncol=2)
-plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
-     xlab="Cost per hour of commute ($)", 
-     ylab="PV of Costs (Billions $)")
-for(alt in 1:3){
-    lines(s.cong, cong.sense[alt,], lty=1)
-  points(s.cong, cong.sense[alt,], pch=markers[alt], bg="white")
-}
-abline(v=congestion.costs$cost.per.hour, lty = "dashed")
-#legend("topleft", legend=c("Alternative 1", "Alternative 2", "Alternative 3"),
-#       lty = c(1, 1, 1), pch = markers, pt.bg = c("white", "white", "white"))
 dev.off()
 
+# pdf("sensitivity3.pdf")
+# par(mar=c(5.1, 4.1, 0, 1), oma = c(0, 0, 1, 0))
+# 
+# legend("topleft", legend=c("Alternative 1", "Alternative 2", "Alternative 3"),
+#        lty = c(1, 1, 1), pch = markers, pt.bg = c("white", "white", "white"))
+# dev.off()
 # npv.costs <- rbind(npv.costs1, npv.costs2)
 #
 # g <- ggplot() + geom_bar(data = npv.costs,
@@ -290,3 +290,16 @@ dev.off()
 # png("barplot1.png", width=480, height = 480)
 # print(g)
 # dev.off()
+# s.years <- seq(7,20, by=1)
+# lifetime.sense <- sapply(s.years, lifetimeSense)
+# plotlims <- matrix(c(min(s.years), max(s.years),
+#                      min(lifetime.sense), max(lifetime.sense)),
+#                    byrow=T, ncol=2)
+# plot(1, type='n', xlim=plotlims[1,], ylim=plotlims[2,],
+#      xlab="Time Horizon of AutoMerge (years)", 
+#      ylab="PV of Costs (Billions $)")
+# for(alt in 1:3){
+#   lines(s.years, lifetime.sense[alt,], lty=1)
+#   points(s.years, lifetime.sense[alt,], pch=markers[alt], bg="white")
+# }
+# abline(v=parameters$num.years, lty = "dashed")

@@ -72,7 +72,8 @@ traffic safety. It also considers the uncertainty related to weather conditions 
 of implementing AV.
 
 According to the results, implementing the AV technology results in less costs to the NYC population.
-Most of the gains are due to a decrease in costs due to traffic congestion. Additionally the results show that 
+Most of the gains are due to a decrease in costs due to traffic congestion, but here are also significant gains 
+due to the reduction of costs related to traffic mortalities and injuries. Additionally the results show that 
 performing a pilot test has a positive monetary value due to the reduction of the uncertainty regarding the 
 outcomes of implementing AV.
 
@@ -341,7 +342,7 @@ We assumed that in the event of bad weather the AM system would not be able to o
 and a human driver would need to take manual control of the vehicle. In this case we assumed that the system
 would operate identically to reference case and hence all results would be the same as alternative 1. Using
 historical data from NY weather, we estimated the expected frequency that weather may be classified as "Bad".
-The resulting probabilities are presented in Table @@.
+The resulting probabilities are presented in Table \ref{tab:outcome.weather}.
 
 \begin{table}[h]
 \caption{Estimated probabilities of "Good Weather" and "Bad Weather" (Source: \cite{nyweather})}
@@ -378,23 +379,16 @@ Time Horizon						& 10 years			& Study assumption		\\\hline
 \subsection{Decision Framework}
 
 With all the pertinent costs, assumptions and representations of uncertainties we can now analyze
-the decision of investing or not in AM.  Figure~\ref{decisiontree} shows a diagram of this decision and of the
+the decision of investing or not in AM.  Figure~\ref{decisiontree} in Appendix shows a diagram of this decision and of the
 uncertain outcomes associated with each decision. In order to simplify the diagram, we didn't represent
 Alternative 3 (deciding to make a pilot test before deciding between alternative 1 and alternative 2). It would be a
 third brach coming out of the decision node and the the result of the test would change the probabilities for each
 traffic outcome (MB, LB and LW). Hence, after the test result node, there would be an identical diagram as the one represented
 by Figure~\ref{decisiontree}.
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.7\textwidth]{../../R/decisiontree.png}
-\caption{Representation of the problem as a decision tree. The square node represents the decision of choosing either alternative 1 or alternative 2. The circle nodes represent the uncertain events related to weather, traffic congestion or traffic safety. Alternative 3 could be interpreted as another branch in the decision node that would result in a new tree identical to the this one but with different probabilities for MB, LB, LW}
-\label{decisiontree}
-\end{figure}
-
 \section{Analysis and Results} \label{results}
 
-Table \ref{tab:results1} presents the resulting NPV for each alternative. For the reference case (Alternative 1) we can observe that the component that results in the largest cost is congestion. The total present value of costs for the reference case is approximately \$ 109 Billion. Implementation of AM (alternative 2) results in a decrease of the expected present value of costs of approximately \$ 2 Billion or 1.6\%. Most of the reduction is due to reduction in the congestion costs. On the other hand, the component cost that results in the biggest relative change is mortality costs, which are reduced by 3.9 \% (\$ 60 million).
+Table \ref{tab:results1} presents the resulting NPV for each alternative. For the reference case (Alternative 1) we can observe that the component that results in the largest cost is congestion. The total present value of costs for the reference case is approximately \$ 125 Billion. Implementation of AM (alternative 2) results in a decrease of the expected present value of costs of approximately \$ 2 Billion or 1.6\%. Most of the reduction is due to reduction in the congestion costs. On the other hand, the component cost that results in the biggest relative change is injury costs, which are reduced by 3.7 \% (\$ 120 million).
 
 \begin{table}[H]
 \caption{NPV results for Alternative 1 and Alternative 2}
@@ -427,43 +421,82 @@ To analyze whether choosing Alternative 3 (performing a pilot test) would be bet
 
 To perform the sensitivity analyses, we followed the methods used
 above but varied key assumptions used in the original computation of
-net expected values under uncertainty.  We varied the discount rate
-from 2 to 12\% simply because these are the extreme values for this
-figure.  While alternative 3 was the best choice under all discount
-rates, the net expected NPV varied greatly under differing discount
-rates. Similarly, alternative 3 had the least net expected cost under
-all values used for lifetime and VSL.  All ranges considered were from
+net expected values under uncertainty. While alternative 3 was the best choice under all discount
+rates, the expected PV varied greatly under differing discount
+rates. Similarly, alternative 3 had the least expected cost under
+all values used for VSL. All ranges considered were from
 half to double the value chosen in the main analysis or expanded to
 a wider range if reasonable values exceeded this range.  We also
-explored the effect of congestion cost per person on NPV but found
-similar results: alternative 3 was robust to all values chosen.
+explored the effect of congestion cost per person on PV. For smaller values
+of this cost, the gain from alternative 3 decreased significantly.
 Last, weather affected alternatives 2 and 3 but not 1.
-As the percent of weather
-undrivable for AM increases, it becomes less cost effective; however,
-without  weather patterns changing dramatically (precipitation more
-than 50 of the time) alternatives 2 and 3 will continue to cost less
+As the percentage of weather conditions that are undrivable for AM increases, it becomes 
+less cost effective; however, without  weather patterns changing dramatically (precipitation more
+than 50\% of the time) alternatives 2 and 3 will continue to cost less
 than alternative 1.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{../../R/sensitivity.pdf}
-\caption{The figure above shows the impact of discount rate, lifetime
-  of AM, value of a statistical life, and weather conditions on
-  expected net NPV.  The vertical dashed line indicates our
-  assumptions from the main analysis}
-\label{fig:sensitivity}
+\includegraphics[width=0.85\textwidth]{../../R/sensitivity1.pdf}
+\caption{Sensitivity of the PV of Costs to changes in 
+  discount rate and cost of congestion lifetime. The vertical 
+  dashed line indicates our assumptions from the main analysis}
+\label{fig:sensitivity1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{../../R/sensitivity2.pdf}
+\caption{Sensitivity of the PV of Costs to changes in 
+  VSL and probability of bad weather. The vertical 
+  dashed line indicates our assumptions from the main analysis}
+\label{fig:sensitivity2}
 \end{figure}
 
 \section{Discussion} \label{discussion}
 
-%\todo[inline]{Write discussion.}
+The previous analysis showed that implementing AM in the NYC bus fleet will result in potential savings
+for the city's population. The costs that will be mostly affected by self driving buses will be congestion costs,
+which include the time value of wasted hours in traffic and fuel costs. There are also savings due to the expected
+reduction in mortalities and injuries in transit accidents. 
+
+One important result is that NYC should perform a pilot test. According to the previous analysis, the cost of the pilot test is
+much smaller than the expected value of the additional information that it brings to the decision makers. Also, the results show
+that NYC should perform a pilot test with 100\% of the bus fleet.
+
+One of the potential sources of uncertainty is how AM enabled buses will react to non ideal weather conditions. This analysis
+assumed that any potential gains of AM would be cancelled in the event of bad weather, since in this case drivers would 
+need to assume control of the vehicle and driving dynamics would go back to current conditions. The results show that 
+as the probability of bad weather conditions increase, the gains of implementing AM decrease significantly. Also, the value
+of the pilot test also decreases, since it does bring additional information about weather conditions. However, even with a 
+significant increase in bad weather events, performing a pilot test is still the best alternative.
 
 \section{Conclusion \& Recommendations} \label{conclusion}
 
-%\todo[inline]{Write Conclusion and Recommendations.}
+This report presented a preliminary BCA analysis of NYC's decision of whether or not to invest in AV technology.
+The result found as that investing in AV will bring gains to the city's population. Because of the novel nature of this technology
+there is a significant amount of uncertainty in the results. One of the important results found is that the city should perform a pilot test
+in order to gather more information about these uncertainties. As more information becomes available, additional analysis should be performed to confirm the results presented in this report.
 
 \begin{multicols}{2}
-\printbibliography[heading=none]
+\printbibliography
 \end{multicols}
+
+\pagebreak
+\section*{Appendix A: Decision Tree Diagram}
+
+Figure \ref{decisiontree} shows the diagram of this decision and of the
+uncertain outcomes associated with each decision.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../../R/decisiontree.png}
+\caption{Representation of the problem as a decision tree. The square node represents the decision of choosing either alternative 1 or alternative 2. The circle nodes represent the uncertain events related to weather, traffic congestion or traffic safety. The percentage values in parenthesis represent the probabilities of each outcome. Alternative 3 could be interpreted as another branch coming out of the decision node which would open into a new tree identical to the this one but with different probabilities for MB, LB, LW (conditioned on the result of the test).}
+\label{decisiontree}
+\end{figure}
+
+In order to simplify the diagram, we didn't represent Alternative 3 (deciding to make a pilot test before deciding between alternative 1 and alternative 2). It would be a third brach coming out of the decision node and the the result of the test would change the probabilities for each traffic outcome (MB, LB and LW). Hence, after the test result node, there would be an identical diagram as the one represented
+by Figure~\ref{decisiontree}.
+
 
 \end{document}
