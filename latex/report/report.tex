@@ -7,7 +7,7 @@
 \usepackage[draft]{todonotes}   % notes showed
 \usepackage{geometry}
 \usepackage{lipsum}
-\usepackage{enumitem}
+\usepackage[inline]{enumitem}
 \usepackage{float}
 \usepackage{forest}
 
@@ -38,6 +38,48 @@
 
 \section*{Executive Summary} \label{execsum}
 
+New York City (NYC) would like to implement a fleet of autonomous
+vehicles (AV) by 2020 as part of a larger initiative of establishing
+itself as a world leader in smart city infrastructure. AV is a fledgling technology
+that has seen tremendous advances in recent years involving
+big technology players such as Google and Uber. An AV vehicle is equipped with
+GPS, radar sensors and computer processors which enable it to drive itself without the
+need of human interaction. However, because of the novel nature there is a considerable amount of
+uncertainty regarding the impact of its implementation on traffic
+issues including safety, congestion, energy consumption and environmental impacts. 
+
+This report performs a Benefit Cost Analysis (BCA) to compare the social costs to the NYC population of three potential alternatives:
+\begin{enumerate*}[label={(\arabic*)},font={\bfseries}]
+\item Do not implement AV;
+\item Implement AV in the NYC bus fleet;
+\item Perform a pilot test with an amount of $n$ buses before deciding whether or not to implement AV.
+\end{enumerate*}
+
+This study focused on a specific AV technology from AutoMerge, Inc. (AM) and looks exclusively
+at whether or not to implement AV in NYC's 40-passenger transit buses fleet. It didn't take into account
+gains from introducing AV in other types of vehicles. The analysis considered the following costs when 
+evaluating the impacts of implementing AV:
+\begin{enumerate*}[label={(\alph*)},font={\bfseries}]
+\item Capital and Operating costs of AV technology;
+\item Costs due to mortalities and injuries in traffic;
+\item Costs due to traffic congestion (time wasted and fuel costs);
+\item Costs due to the emission of air pollutants (health hazards to the general population);
+\item Costs due to the emission of green house gases (GHG) that cause climatic changes.
+\end{enumerate*}
+
+The analysis also considers uncertainties of implementing AV in the outcomes of traffic congestion and
+traffic safety. It also considers the uncertainty related to weather conditions and how this affects the outcomes
+of implementing AV.
+
+According to the results, implementing the AV technology results in less costs to the NYC population.
+Most of the gains are due to a decrease in costs due to traffic congestion. Additionally the results show that 
+performing a pilot test has a positive monetary value due to the reduction of the uncertainty regarding the 
+outcomes of implementing AV.
+
+In summary, implementing AV technology in the NYC bus fleet shows several benefits for the city's population. It results
+in a decrease of costs due to traffic congestions, air pollution, mortalities and injuries.
+
+
 \pagebreak
 \section{Introduction} \label{intro}
 
@@ -48,7 +90,7 @@ that has seen tremendous advances in recent years involving
 big technology players such as Google and Uber. An AV vehicle is equiped with
 GPS, radar sensors and computer processors which enable it to drive itself without the
 need of human interaction. Because of the
-novel nature of AV technology, there is a considerable amount of
+novel nature of AV technology there is a considerable amount of
 uncertainty regarding the impact of its implementation on traffic
 issues including safety, congestion, energy consumption and environmental impacts.
 NYC officials wish to study potential alternatives and determine their effect, while
@@ -61,7 +103,7 @@ buses. It will compare different alternative strategies by performing
 a Benefit Cost Analysis (BCA) to assess how these different options
 impact the general population of NYC, which are the main stakeholders
 in this issue. Among the factors to be included in the analysis are:
-safety, energy consumption, air pollution, GHG emissions, weather
+safety, energy consumption, air pollution, green house gases (GHG) emissions, weather
 conditions and time savings due to improvement in traffic flow. Section \ref{problem}
 presents a detailed description of the problem and the alternatives analyzed. Section
 \ref{results} presents the analysis of each alternative and the
@@ -146,15 +188,14 @@ in the bus system will impact these costs in different ways.
 \label{tab:am.cost}
 \end{table}%
 
-
 \item \textbf{Traffic Congestion.}
   Being a part of the transit system, buses have an impact in the traffic congestion
   of NYC. This traffic congestion incurs in a social cost due to longer commutes, wasted hours for
-  the general population and additional fuel consumption. The use of AM can
-  have an impact in the traffic flow and potentially decrease these costs. To calculate
-  congestion costs, we only consider this cost related to bus commutes (since we assume that these will
-  be the ones impacted by AM). Table \ref{tab:cong.cost} presents the computation of the
-  traffic cost for the reference case
+  the general population and additional fuel consumption. \cite{UMR} estimates that in NYC this cost is
+  around 23 \$/hour for each commuter. The use of AM can have an impact in the traffic flow and 
+  potentially decrease these costs. To calculate congestion costs, we only consider this cost related 
+  to bus commutes (since we assume that these will be the ones impacted by AM). Table \ref{tab:cong.cost} 
+  presents the computation of the traffic cost for the reference case
 
 \begin{table}[h]
 \caption{Estimate of social costs due to traffic congestion in NYC}
@@ -264,7 +305,9 @@ and the probabilities associated.
 \begin{tabular}{l r r}
 \hline
 \bfseries Outcome &  \bfseries Commute time change & \bfseries Probability \\\hline\hline
-Much Better (MB) & 235 seconds & 0.20 \\Little Better (LB) & 55 seconds & 0.40 \\Little Worse (LW) & 30 seconds & 0.40\\\hline
+Much Better (MB) & 235 seconds & 0.20 \\
+Little Better (LB) & 55 seconds & 0.40 \\
+Little Worse (LW) & 30 seconds & 0.40\\\hline
 \end{tabular}
 \label{tab:outcome.cong}
 \end{table}%
@@ -284,7 +327,9 @@ Table \ref{tab:outcome.safety} presents the outcomes and the probabilities assoc
 \begin{tabular}{l r r r}
 \hline
 \bfseries Outcome &  \bfseries Change in Mortality & \bfseries Change in Injuries & \bfseries Probability (*)\\\hline\hline
-Upper Bound (sUB) & -10\% & -10\% & 0.10 \\Best Estimate (sBE) & -4\% & -4\% & 0.80 \\Lower Bound (sLB) & +1\% & +2\% & 0.10\\\hline
+Upper Bound (sUB) & -10\% & -10\% & 0.10 \\
+Best Estimate (sBE) & -4\% & -4\% & 0.80 \\
+Lower Bound (sLB) & +1\% & +2\% & 0.10\\\hline
 \multicolumn{4}{l}{\footnotesize (*) The probabilities for each case were assigned by us}
 \end{tabular}
 \label{tab:outcome.safety}
@@ -305,7 +350,8 @@ The resulting probabilities are presented in Table @@.
 \begin{tabular}{l r}
 \hline
 \bfseries Outcome &  \bfseries Probability \\\hline\hline
-Good Weather & 92\% \\Bad Weather & 8\%\\\hline
+Good Weather & 92\% \\
+Bad Weather & 8\%\\\hline
 \end{tabular}
 \label{tab:outcome.weather}
 \end{table}%
@@ -393,7 +439,7 @@ without  weather patterns changing dramatically (precipitation more
 than 50 of the time) alternatives 2 and 3 will continue to cost less
 than alternative 1.
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{../../R/sensitivity.pdf}
 \caption{The figure above shows the impact of discount rate, lifetime
@@ -411,8 +457,6 @@ than alternative 1.
 
 %\todo[inline]{Write Conclusion and Recommendations.}
 
-\pagebreak
-\pagebreak
 \begin{multicols}{2}
 \printbibliography[heading=none]
 \end{multicols}
