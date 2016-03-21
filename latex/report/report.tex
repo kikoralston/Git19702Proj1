@@ -18,7 +18,7 @@
 
 % set custom date and format
 \usepackage[nodayofweek,level]{datetime}
-\newcommand{\mydate}{\formatdate{17}{3}{2016}}
+\newcommand{\mydate}{\formatdate{21}{3}{2016}}
 \newdateformat{mydateformat}{ \THEMONTH \dateseparator \THEDAY \dateseparator \THEYEAR}
 
 %bibliography
@@ -26,7 +26,7 @@
 \addbibresource{bibfile.bib}
 \appto{\bibfont}{\scriptsize} % \footnotesize
 
-\title{\vspace{-2cm} 19702 \\ Project 1}
+\title{\vspace{-2.5cm} 19702 - Project 1}
 \author{Francisco Fonseca \and Octavio Mesner}
 \date{\mydate}
 
@@ -34,7 +34,7 @@
 
 \begin{document}
 
-% \maketitle % Print the title
+\maketitle % Print the title
 
 \section*{Executive Summary} \label{execsum}
 
@@ -68,17 +68,17 @@ evaluating the impacts of implementing AV:
 \end{enumerate*}
 
 The analysis also considers uncertainties of implementing AV in the outcomes of traffic congestion and
-traffic safety. It also considers the uncertainty related to weather conditions and how this affects the outcomes
+traffic safety. Additionally, it includes the uncertainty related to weather conditions and how this affects the outcomes
 of implementing AV.
 
-According to the results, implementing the AV technology results in less costs to the NYC population.
-Most of the gains are due to a decrease in costs due to traffic congestion, but here are also significant gains 
+According to the results, implementing the AV technology results in a decrease of 1.6\% in the Present Value of costs 
+to the NYC population. Most of the gains are due to a decrease in costs due to traffic congestion, but there are also significant gains 
 due to the reduction of costs related to traffic mortalities and injuries. Additionally the results show that 
 performing a pilot test has a positive monetary value due to the reduction of the uncertainty regarding the 
 outcomes of implementing AV.
 
-In summary, implementing AV technology in the NYC bus fleet shows several benefits for the city's population. It results
-in a decrease of costs due to traffic congestions, air pollution, mortalities and injuries.
+The report presents a sensitivity analysis of the results to some of the inputs. Although the final values significantly change
+with respect to changes in these inputs, the final conclusion (that NYC should do a pilot test and implement AV) still hold.
 
 
 \pagebreak
@@ -282,7 +282,7 @@ in the bus system will impact these costs in different ways.
 
 \end{enumerate}
 
-\subsection{Uncertainty}
+\subsection{Uncertainty} \label{uncertainty}
 
 In addition to the costs listed above, there are also uncertainties associated
 with the implementation of AM. Three sources of uncertainties are considered in this analysis:
@@ -379,7 +379,7 @@ Time Horizon						& 10 years			& Study assumption		\\\hline
 \subsection{Decision Framework}
 
 With all the pertinent costs, assumptions and representations of uncertainties we can now analyze
-the decision of investing or not in AM.  Figure~\ref{decisiontree} in Appendix shows a diagram of this decision and of the
+the decision of investing or not in AM.  Figure~\ref{decisiontree} in Appendix A shows a diagram of this decision and of the
 uncertain outcomes associated with each decision. In order to simplify the diagram, we didn't represent
 Alternative 3 (deciding to make a pilot test before deciding between alternative 1 and alternative 2). It would be a
 third brach coming out of the decision node and the the result of the test would change the probabilities for each
@@ -490,13 +490,12 @@ uncertain outcomes associated with each decision.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{../../R/decisiontree.png}
-\caption{Representation of the problem as a decision tree. The square node represents the decision of choosing either alternative 1 or alternative 2. The circle nodes represent the uncertain events related to weather, traffic congestion or traffic safety. The percentage values in parenthesis represent the probabilities of each outcome. Alternative 3 could be interpreted as another branch coming out of the decision node which would open into a new tree identical to the this one but with different probabilities for MB, LB, LW (conditioned on the result of the test).}
+\includegraphics[width=0.85\textwidth]{../../R/decisiontree.png}
+\caption{Representation of the problem as a decision tree. The square node represents the decision of choosing either alternative 1 or alternative 2. The circle nodes represent the uncertain events related to weather, traffic congestion or traffic safety. The percentage values in parenthesis represent the probabilities of each outcome. Labels in the bottom of the figure explain what each node represents. Alternative 3 could be interpreted as another branch coming out of the decision node which would open into a new tree identical to the this one but with different probabilities for MB, LB, LW (conditioned on the result of the test).}
 \label{decisiontree}
 \end{figure}
 
-In order to simplify the diagram, we didn't represent Alternative 3 (deciding to make a pilot test before deciding between alternative 1 and alternative 2). It would be a third brach coming out of the decision node and the the result of the test would change the probabilities for each traffic outcome (MB, LB and LW). Hence, after the test result node, there would be an identical diagram as the one represented
-by Figure~\ref{decisiontree}.
+In order to simplify the diagram, we didn't represent Alternative 3 (deciding to make a pilot test before deciding between alternative 1 and alternative 2). It would be a third brach coming out of the decision node. This branch would lead to a new event node ("Result of Test"). For each potential result of the test there would be an identical diagram as the one represented by Figure~\ref{decisiontree} but this test result would change the probabilities for each traffic outcome (MB, LB and LW). More details on each different outcome and how they affect the computation of the present value are presented in Section \ref{uncertainty}.
 
 
 \end{document}
