@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  20 MAR 2016 20:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  21 MAR 2016 12:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1042,8 +1042,13 @@ File: ../../R/decisiontree.png Graphic file (type png)
 
 <use ../../R/decisiontree.png>
 Package pdftex.def Info: ../../R/decisiontree.png used on input line 126.
-(pdftex.def)             Requested size: 176.96736pt x 176.96074pt.
- [5
+(pdftex.def)             Requested size: 206.45892pt x 206.4593pt.
+
+Overfull \hbox (1.03882pt too wide) detected at line 126
+[][][] $[]$[][][][][][][][] $[]$[][][][][][] 
+ []
+
+[5
 
  <../../R/decisiontree.png>] [6
 
@@ -1111,13 +1116,13 @@ LaTeX Font Warning: Size substitutions with differences
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 217.
  ) 
 Here is how much of TeX's memory you used:
- 20699 strings out of 493089
- 418260 string characters out of 6134842
+ 20700 strings out of 493089
+ 418275 string characters out of 6134842
  484936 words of memory out of 5000000
- 23672 multiletter control sequences out of 15000+600000
- 14340 words of font info for 52 fonts, out of 8000000 for 9000
+ 23673 multiletter control sequences out of 15000+600000
+ 14645 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,19n,60p,416b,545s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,19n,60p,416b,576s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb>
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb><
 /usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></
@@ -1128,7 +1133,7 @@ local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr
 /local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/
 local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/lo
 cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on presentation.pdf (10 pages, 235997 bytes).
+Output written on presentation.pdf (10 pages, 235996 bytes).
 PDF statistics:
  309 PDF objects out of 1000 (max. 8388607)
  263 compressed objects within 3 object streams
