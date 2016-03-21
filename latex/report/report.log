@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  20 MAR 2016 16:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  20 MAR 2016 18:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1264,34 +1264,34 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 172.
+(Font)              <9> on input line 173.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 172.
+(Font)              <5> on input line 173.
  [3]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 205.
+(Font)              <7> on input line 206.
 
-Underfull \hbox (badness 4266) in paragraph at lines 265--265
+Underfull \hbox (badness 4266) in paragraph at lines 266--266
 []|\T1/cmr/m/n/9 Total an-nual ve-hi-cle
  []
 
 
-Underfull \hbox (badness 2762) in paragraph at lines 266--266
+Underfull \hbox (badness 2762) in paragraph at lines 267--267
 []|\T1/cmr/bx/n/9 Total an-nual run-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 272--272
+Underfull \hbox (badness 10000) in paragraph at lines 273--273
 []|\T1/cmr/m/n/9 Total an-nual travel
  []
 
 
-Underfull \hbox (badness 5847) in paragraph at lines 274--274
+Underfull \hbox (badness 5847) in paragraph at lines 275--275
 []|\T1/cmr/bx/n/9 Total an-nual idle
  []
 
 
-Overfull \hbox (19.26117pt too wide) in paragraph at lines 260--277
+Overfull \hbox (19.26117pt too wide) in paragraph at lines 261--278
  [][] 
  []
 
@@ -1303,61 +1303,62 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [5]
-Overfull \hbox (11.78923pt too wide) in paragraph at lines 327--336
+Overfull \hbox (11.78923pt too wide) in paragraph at lines 328--337
  [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[6] <../../R/decisiontree.png, id=36, 1003.75pt x 1003.75pt>
-File: ../../R/decisiontree.png Graphic file (type png)
-
-<use ../../R/decisiontree.png>
-Package pdftex.def Info: ../../R/decisiontree.png used on input line 390.
-(pdftex.def)             Requested size: 301.00192pt x 301.00479pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[7] <../../R/alt3Barplot.pdf, id=42, 505.89pt x 505.89pt>
+[6] [7] <../../R/alt3Barplot.pdf, id=40, 505.89pt x 505.89pt>
 File: ../../R/alt3Barplot.pdf Graphic file (type pdf)
 
 <use ../../R/alt3Barplot.pdf>
-Package pdftex.def Info: ../../R/alt3Barplot.pdf used on input line 419.
+Package pdftex.def Info: ../../R/alt3Barplot.pdf used on input line 413.
 (pdftex.def)             Requested size: 193.50076pt x 193.49843pt.
+ [8 <../../R/alt3Barplot.pdf>]
+<../../R/sensitivity1.pdf, id=49, 1011.78pt x 505.89pt>
+File: ../../R/sensitivity1.pdf Graphic file (type pdf)
 
+<use ../../R/sensitivity1.pdf>
+Package pdftex.def Info: ../../R/sensitivity1.pdf used on input line 440.
+(pdftex.def)             Requested size: 365.50655pt x 182.75323pt.
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+<../../R/sensitivity2.pdf, id=50, 1011.78pt x 505.89pt>
+File: ../../R/sensitivity2.pdf Graphic file (type pdf)
 
-[8 <../../R/decisiontree.png>]
-<../../R/sensitivity.pdf, id=47, 337.26pt x 505.89pt>
-File: ../../R/sensitivity.pdf Graphic file (type pdf)
+<use ../../R/sensitivity2.pdf>
+Package pdftex.def Info: ../../R/sensitivity2.pdf used on input line 449.
+(pdftex.def)             Requested size: 365.50655pt x 182.75323pt.
+ [9 <../../R/sensitivity1.pdf> <../../R/sensitivity2.pdf>]
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 482.
 
-<use ../../R/sensitivity.pdf>
-Package pdftex.def Info: ../../R/sensitivity.pdf used on input line 449.
-(pdftex.def)             Requested size: 344.005pt x 516.0164pt.
- [9 <../../R/alt3Barplot.pdf>]
-Overfull \vbox (12.46849pt too high) has occurred while \output is active []
-
-
-[10 <../../R/sensitivity.pdf>]
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 466.
-
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1cmtt.fd
+ (/usr/local/texlive/2015/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-) [11]
+)
+Overfull \vbox (3.70222pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (7.54308pt too high) has occurred while \output is active []
+
+
+[10] <../../R/decisiontree.png, id=73, 1003.75pt x 1003.75pt>
+File: ../../R/decisiontree.png Graphic file (type png)
+
+<use ../../R/decisiontree.png>
+Package pdftex.def Info: ../../R/decisiontree.png used on input line 493.
+(pdftex.def)             Requested size: 344.005pt x 344.01204pt.
+ [11 <../../R/decisiontree.png>] [12]
 (./report.aux)
 Package logreq Info: Writing requests to 'report.run.xml'.
 \openout1 = `report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 25514 strings out of 493089
- 534870 string characters out of 6134842
- 1088011 words of memory out of 5000000
- 28536 multiletter control sequences out of 15000+600000
+ 25520 strings out of 493089
+ 535025 string characters out of 6134842
+ 1090019 words of memory out of 5000000
+ 28541 multiletter control sequences out of 15000+600000
  17444 words of font info for 40 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,13n,69p,1041b,1421s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1378,10 +1379,10 @@ e/2015/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/
 /texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2015/t
 exmf-dist/fonts/type1/public/cm-super/sfti0800.pfb></usr/local/texlive/2015/tex
 mf-dist/fonts/type1/public/cm-super/sftt0800.pfb>
-Output written on report.pdf (11 pages, 404695 bytes).
+Output written on report.pdf (12 pages, 426447 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
- 88 compressed objects within 1 object stream
+ 134 PDF objects out of 1000 (max. 8388607)
+ 95 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 28 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 33 words of extra memory for PDF output out of 10000 (max. 10000000)
 
